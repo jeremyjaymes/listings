@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Listing;
 
 class ListingController extends Controller
 {
@@ -13,7 +14,9 @@ class ListingController extends Controller
      */
     public function index()
     {
-        //
+        $listings = Listing::all();
+
+        return response()->view('listing.index', ['listings' => $listings]);
     }
 
     /**
