@@ -19,7 +19,17 @@ class ListingTableSeeder extends Seeder
         $listing->state_id = 50;
         $listing->zip = '98390';
         $listing->website = 'https:://mrdinc.com';
-        $listing->cat_id = 1;
+        $listing->tag_id = 1;
         $listing->save();
+
+        $listing2 = new Listing;
+        $listing2->name = 'USA Co.';
+        $listing2->street_address = '12 American St.';
+        $listing2->city = 'Delafield';
+        $listing2->state_id = 52;
+        $listing2->zip = '53118';
+        $listing2->website = 'https:://example.org';
+        $listing2->tag_id = 1;
+        $listing2->save();
     }
 }

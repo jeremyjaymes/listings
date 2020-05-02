@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Category;
+use App\Tag;
 
-class CategoriesTableSeeder extends Seeder
+class TagsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $category = new Category;
+        $category = new Tag;
         $category->name = 'Machine Shops';
         $category->save();
     }

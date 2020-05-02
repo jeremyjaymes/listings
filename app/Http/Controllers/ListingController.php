@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreListing;
 use Illuminate\Http\Request;
 use App\Listing;
 
@@ -14,9 +15,9 @@ class ListingController extends Controller
      */
     public function index()
     {
-        $listings = Listing::all();
-
-        return response()->view('listing.index', ['listings' => $listings]);
+        $listings = Listing::where('is_approved', true)->get();
+        $states = \App\State::all();
+        return response()->view('listing.index', compact('listings', 'states'));
     }
 
     /**
@@ -26,18 +27,19 @@ class ListingController extends Controller
      */
     public function create()
     {
-        return response()->view('listing.create');
+        return response()->view('listing.create', ['states' => \App\State::all()]);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreListing $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreListing $request)
     {
-        //
+        $listing = Listing::create($request->input());
+        return response()->json([
+            'message' => 'Your listing has been submitted, you will be notified when it is approved.'
+        ]);
     }
 
     /**

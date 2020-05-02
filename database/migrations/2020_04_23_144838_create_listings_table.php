@@ -24,10 +24,11 @@ class CreateListingsTable extends Migration
             $table->float('lat', 10, 6)->nullable();
             $table->float('long', 10, 6)->nullable();
             $table->string('phone')->nullable();
-            $table->string('email')->nullable();
+            $table->string('company_email')->nullable();
+            $table->string('contact_email');
             $table->string('website')->nullable();
-            $table->foreignId('cat_id')->constrained('categories');
-            $table->boolean('is_published')->default(false);
+            $table->foreignId('tag_id')->constrained('tags');
+            $table->boolean('is_approved')->default(false);
             $table->timestamps();
         });
     }

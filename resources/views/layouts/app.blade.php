@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Listings') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -21,60 +21,49 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <nav class="bg-white py-6 px-20 border-b">
+            <div class="container mx-auto flex items-center justify-space-between">
+                <div class="w-full flex justify-end items-end relative">
+                @guest
+                    <a class="block flex items-center mr-5" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    @if (Route::has('register'))
+                        <a class="block flex items-center" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    @endif
+                @else
+                    <a class="block flex items-center mr-5" href="#">
+                        {{ Auth::user()->name }} <span class="caret"></span>
+                    </a>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
 
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                @endguest
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
-            @yield('content')
+        <header class="py-12 border-b">
+            <div class="container mx-auto">
+                <h1 class="text-5xl text-center text-gray-600 font-black">{{ config('app.name', 'Listings') }}</h1>
+                <p class="text-4xl text-center font-bold mb-8">{{ config('app.tagline', 'A Directory Application') }}</p>
+                <div class="pt-2 pb-2 text-center">
+                    @yield('button')
+                </div>
+            </div>
+        </header>
+        <main class="container mx-auto">
+            <div class="flex flex-col justify-start bg-grey-lightest text-grey-light mt-20 px-20">
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>
+@stack('scripts')
 </html>

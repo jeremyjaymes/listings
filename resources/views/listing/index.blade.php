@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
+@section('button')
+    <listing-create :states="{{ $states }}"></listing-create>
+@endsection
 @section('content')
-<div class="container">
     <listings :listings="{{$listings->toJson()}}"></listings>
-</div>
 @endsection
