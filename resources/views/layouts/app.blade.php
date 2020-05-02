@@ -21,34 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="bg-white py-6 px-20 border-b">
-            <div class="container mx-auto flex items-center justify-space-between">
-                <div class="w-full flex justify-end items-end relative">
-                @guest
-                    <a class="block flex items-center mr-5" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    @if (Route::has('register'))
-                        <a class="block flex items-center" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    @endif
-                @else
-                    <a class="block flex items-center mr-5" href="#">
-                        {{ Auth::user()->name }} <span class="caret"></span>
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div>
-                @endguest
-                </div>
-            </div>
-        </nav>
+        <div class="bg-blue-200 py-6 px-20 border-b"></div>
         <header class="py-12 border-b">
             <div class="container mx-auto">
                 <h1 class="text-5xl text-center text-gray-600 font-black">{{ config('app.name', 'Listings') }}</h1>
