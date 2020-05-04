@@ -20,6 +20,7 @@ class ListingTableSeeder extends Seeder
         $listing->zip = '98390';
         $listing->website = 'https:://mrdinc.com';
         $listing->tag_id = 1;
+        $listing->contact_email = 'jeremy@papertreedesign.com';
         $listing->save();
 
         $listing2 = new Listing;
@@ -30,6 +31,7 @@ class ListingTableSeeder extends Seeder
         $listing2->zip = '53118';
         $listing2->website = 'https:://example.org';
         $listing2->tag_id = 1;
+        $listing2->contact_email = 'jeremy@papertreedesign.com';
         $listing2->save();
     }
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreListing;
+use App\Mail\ListingRequiresApproval;
 use Illuminate\Http\Request;
 use App\Listing;
+use Illuminate\Support\Facades\Mail;
 
 class ListingController extends Controller
 {
@@ -37,6 +39,11 @@ class ListingController extends Controller
     public function store(StoreListing $request)
     {
         $listing = Listing::create($request->input());
+
+        if ($listing) {
+            Mail::to(env('ADMIN_EMAIL'))->send(new ListingRequiresApproval());
+        }
+
         return response()->json([
             'message' => 'Your listing has been submitted, you will be notified when it is approved.'
         ]);

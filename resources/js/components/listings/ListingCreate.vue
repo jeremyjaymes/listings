@@ -21,6 +21,15 @@
                     <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
             leading-tight focus:outline-none focus:shadow-outline" id="description" v-model="description"></textarea>
                 </div>
+                <div class="px-4 py-2">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="contact-email">
+                        Contact Email
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+            leading-tight focus:outline-none focus:shadow-outline" id="contact-email" type="text"
+                           v-model="contact_email"
+                           placeholder="USA Manufacturing">
+                </div>
                 <street-address :address="address" :states="states"></street-address>
                 <button @click.prevent="create">Create Listing</button>
             </form>
@@ -47,6 +56,7 @@
                     state_id: null,
                     zip: null
                 },
+                contact_email: null,
                 addListing: false
             }
         },
@@ -65,6 +75,7 @@
                     city: this.address.city,
                     state_id: this.address.state_id,
                     zip: this.address.zip,
+                    contact_email: this.contact_email,
                     tag_id: 1,
                 }
                 axios.post('/listings', request).then( resp => (

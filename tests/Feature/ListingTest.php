@@ -27,7 +27,7 @@ class ListingTest extends TestCase
         $request = [
             'name' => $this->faker->company,
             'description' => $this->faker->text,
-            'email' => $this->faker->unique()->safeEmail,
+            'contact_email' => $this->faker->safeEmail,
             'street_address' => $this->faker->streetAddress,
             'city' => $this->faker->city,
             'zip' => $this->faker->postcode,

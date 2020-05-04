@@ -12,6 +12,7 @@ class Listing extends Model
         'city',
         'state_id',
         'zip',
+        'contact_email',
         'tag_id'
     ];
 }

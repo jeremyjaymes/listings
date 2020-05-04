@@ -1994,6 +1994,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['states'],
@@ -2010,6 +2019,7 @@ __webpack_require__.r(__webpack_exports__);
         state_id: null,
         zip: null
       },
+      contact_email: null,
       addListing: false
     };
   },
@@ -2028,6 +2038,7 @@ __webpack_require__.r(__webpack_exports__);
         city: this.address.city,
         state_id: this.address.state_id,
         zip: this.address.zip,
+        contact_email: this.contact_email,
         tag_id: 1
       };
       axios.post('/listings', request).then(function (resp) {
@@ -38619,6 +38630,48 @@ var render = function() {
                           return
                         }
                         _vm.description = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "px-4 py-2" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "block text-gray-700 text-sm font-bold mb-2",
+                      attrs: { for: "contact-email" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    Contact Email\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.contact_email,
+                        expression: "contact_email"
+                      }
+                    ],
+                    staticClass:
+                      "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n        leading-tight focus:outline-none focus:shadow-outline",
+                    attrs: {
+                      id: "contact-email",
+                      type: "text",
+                      placeholder: "USA Manufacturing"
+                    },
+                    domProps: { value: _vm.contact_email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.contact_email = $event.target.value
                       }
                     }
                   })
