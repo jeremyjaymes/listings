@@ -38731,7 +38731,7 @@ var render = function() {
         "div",
         {
           staticClass:
-            "border border-gray-300 rounded-sm py-8 px-3 mb-2 w-full flex flex-wrap justify-between\n    hover:bg-gray-200 box-shadow"
+            "border-b border-gray-300 rounded-sm py-8 px-3 mb-2 w-full flex flex-wrap justify-between\n    hover:bg-gray-200 box-shadow"
         },
         [
           _c(

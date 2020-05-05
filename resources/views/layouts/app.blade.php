@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <div class="bg-blue-200 py-6 px-20 border-b"></div>
+        <div class="bg-blue-600 py-6 px-20 border-b"></div>
         <header class="py-12">
             <div class="container mx-auto">
                 <h1 class="text-5xl text-center text-gray-600 font-black">{{ config('app.name', 'Listings') }}</h1>

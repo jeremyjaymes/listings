@@ -13,14 +13,15 @@ class ListingTableSeeder extends Seeder
     public function run()
     {
         $listing = new Listing;
-        $listing->name = 'MRD Inc';
-        $listing->street_address = '1710 Fryar Avenue, Suite 102';
-        $listing->city = 'Sumner';
+        $listing->name = 'Steel Manufacturing';
+        $listing->street_address = '12 South St.';
+        $listing->city = 'Seattle';
         $listing->state_id = 50;
         $listing->zip = '98390';
-        $listing->website = 'https:://mrdinc.com';
-        $listing->tag_id = 1;
+        $listing->website = 'https:://example.org';
         $listing->contact_email = 'jeremy@papertreedesign.com';
+        $listing->is_approved = true;
+        $listing->tag_id = 1;
         $listing->save();
 
         $listing2 = new Listing;
@@ -30,8 +31,9 @@ class ListingTableSeeder extends Seeder
         $listing2->state_id = 52;
         $listing2->zip = '53118';
         $listing2->website = 'https:://example.org';
-        $listing2->tag_id = 1;
         $listing2->contact_email = 'jeremy@papertreedesign.com';
+        $listing2->is_approved = true;
+        $listing2->tag_id = 1;
         $listing2->save();
     }
 }

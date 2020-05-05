@@ -15,4 +15,8 @@ class Listing extends Model
         'contact_email',
         'tag_id'
     ];
+
+    protected $casts = [
+        'is_approved' => 'boolean'
+    ];
 }
