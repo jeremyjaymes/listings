@@ -41,6 +41,41 @@ class ListingTest extends TestCase
         $response->assertJson([
             'message' => 'Your listing has been submitted, you will be notified when it is approved.'
         ]);
+    }
 
+    public function test_a_listing_can_be_edited_by_admin()
+    {
+        $this->signInAsAdmin();
+        $listing = factory(\App\Listing::class)->create();
+
+        $this->get('/listings/' . $listing->id . '/edit')
+            ->assertStatus(200);
+    }
+
+    public function test_a_listing_can_not_be_edited_by_user()
+    {
+        $this->signIn();
+        $listing = factory(\App\Listing::class)->create();
+
+        $this->get('/listings/' . $listing->id . '/edit')
+            ->assertStatus(403);
+    }
+
+    public function test_a_listing_can_be_deleted_by_admin()
+    {
+        $this->signInAsAdmin();
+        $listing = factory(\App\Listing::class)->create();
+
+        $this->delete('/listings/' . $listing->id)
+            ->assertStatus(201);
+    }
+
+    public function test_a_listing_can_not_be_deleted_by_user()
+    {
+        $this->signIn();
+        $listing = factory(\App\Listing::class)->create();
+
+        $this->delete('/listings/' . $listing->id)
+            ->assertStatus(403);
     }
 }

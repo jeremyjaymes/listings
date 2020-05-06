@@ -6,6 +6,7 @@ use App\Http\Requests\StoreListing;
 use App\Mail\ListingRequiresApproval;
 use Illuminate\Http\Request;
 use App\Listing;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
 
 class ListingController extends Controller
@@ -64,11 +65,13 @@ class ListingController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit($id)
     {
-        //
+        $this->authorize('update', Listing::class);
+
+        return response()->json([], 200);
     }
 
     /**
@@ -76,21 +79,28 @@ class ListingController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->authorize('update', Listing::class);
+
+        return response()->json([], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('delete', Listing::class);
+
+        Listing::destroy($id);
+        return response()->json([
+            'message' => 'Listing Deleted'
+        ], 201);
     }
 }
