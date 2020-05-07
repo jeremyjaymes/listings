@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.component('listing-create', require('./components/listings/ListingCreate.vue').default);
 Vue.component('listings', require('./components/listings/Listings.vue').default);
+Vue.component('listing', require('./components/listings/Listing.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

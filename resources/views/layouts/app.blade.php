@@ -32,8 +32,14 @@
             </div>
         </header>
         <main class="container mx-auto">
-            <div class="flex flex-col justify-start bg-grey-lightest text-grey-light mt-20 px-20">
-                @yield('content')
+            @include('partials.search')
+            <div class="flex">
+                <div class="lg:w-1/5 mt-10">
+                    sidebar
+                </div>
+                <div class="lg:w-4/5 bg-grey-lightest text-grey-light mt-10 pl-10">
+                    @yield('content')
+                </div>
             </div>
         </main>
     </div>
