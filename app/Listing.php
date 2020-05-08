@@ -25,6 +25,18 @@ class Listing extends Model
         'is_approved' => 'boolean'
     ];
 
+    protected $appends = [
+        'state_name'
+    ];
+
+    /**
+     * @return mixed
+     */
+    public function getStateNameAttribute()
+    {
+        return State::where('id', $this->state_id)->first()->name;
+    }
+
     /**
      * Get the indexable data array for the model.
      *
@@ -33,9 +45,6 @@ class Listing extends Model
     public function toSearchableArray()
     {
         $array = $this->toArray();
-
-        // Customize array...
-
         return $array;
     }
 }

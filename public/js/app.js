@@ -2225,6 +2225,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['listings']
 });
@@ -23701,7 +23702,13 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("span", { staticClass: "inline-block" }, [
-                      _vm._v(_vm._s(listing.city))
+                      _vm._v(
+                        _vm._s(listing.city) +
+                          ", " +
+                          _vm._s(listing.state_name) +
+                          ",\n                            " +
+                          _vm._s(listing.zip)
+                      )
                     ]),
                     _vm._v(" "),
                     _c("span", { staticClass: "inline-block" })

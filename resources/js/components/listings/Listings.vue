@@ -9,7 +9,8 @@
                         <p class="text-xl font-bold text-gray-600">{{ listing.name }}</p>
                         <address class="text-md not-italic">
                             <span class="block">{{ listing.street_address }}</span>
-                            <span class="inline-block">{{ listing.city }}</span>
+                            <span class="inline-block">{{ listing.city }}, {{ listing.state_name }},
+                                {{ listing.zip }}</span>
                             <span class="inline-block"></span>
                         </address>
                     </div>
