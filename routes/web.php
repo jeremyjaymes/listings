@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'ListingController@index');
-
-Route::resource('listings', 'ListingController');
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'ListingController@index');
+Route::resource('listings', 'ListingController');
+
+Route::get('/approvals', 'ListingApprovalController@index');
+Route::post('/approvals/{listing}', 'ListingApprovalController@store');

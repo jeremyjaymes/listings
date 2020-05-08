@@ -21,8 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <div class="bg-blue-600 py-6 px-20 border-b"></div>
-        <header class="py-12">
+        <header class="py-12 bg-gray-200 border-b mb-10">
             <div class="container mx-auto">
                 <h1 class="text-5xl text-center text-gray-600 font-black">{{ config('app.name', 'Listings') }}</h1>
                 <p class="text-4xl text-center font-bold mb-8">{{ config('app.tagline', 'A Directory Application') }}</p>
@@ -31,14 +30,14 @@
                 </div>
             </div>
         </header>
-        <main class="container mx-auto">
+        <main class="container mx-auto px-20">
             @include('partials.search')
             <div class="flex">
+                <div class="lg:w-4/5 bg-grey-lightest text-grey-light mt-10 pr-10">
+                    @yield('content')
+                </div>
                 <div class="lg:w-1/5 mt-10">
                     sidebar
-                </div>
-                <div class="lg:w-4/5 bg-grey-lightest text-grey-light mt-10 pl-10">
-                    @yield('content')
                 </div>
             </div>
         </main>

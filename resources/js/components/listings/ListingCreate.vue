@@ -1,11 +1,12 @@
 <template>
     <div>
-        <button class="bg-blue-500 hover:bg-blue-700 text-xl text-white font-bold py-2 px-4 rounded"
-                @click.prevent="add">
+        <button v-if="!addListing" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4
+                border-blue-700
+        hover:border-blue-500 rounded" @click.prevent="add">
             Add A Listing
         </button>
         <transition name="fade">
-            <form v-if="addListing" id="createListing" class="text-left mt-4">
+            <form v-if="addListing" id="createListing" class="text-left mt-4 mb-8">
                 <div class="px-4 py-2">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
                         Business Name
@@ -31,7 +32,11 @@
                            placeholder="USA Manufacturing">
                 </div>
                 <street-address :address="address" :states="states"></street-address>
-                <button @click.prevent="create">Create Listing</button>
+                <div class="px-4 py-4">
+                    <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4
+                border-blue-700 hover:border-blue-500 rounded" @click.prevent="create">Submit Listing</button>
+                    <button class="px-2 text-gray-500" @click="addListing = false">Cancel</button>
+                </div>
             </form>
         </transition>
 
@@ -40,6 +45,7 @@
 
 <script>
     import StreetAddress from "../forms/Address";
+
     export default {
         props: ['states'],
         components: {
@@ -78,9 +84,16 @@
                     contact_email: this.contact_email,
                     tag_id: 1,
                 }
-                axios.post('/listings', request).then( resp => (
-                    console.log(resp)
-                )).catch( err => (
+                axios.post('/listings', request).then( resp => {
+                    this.$toasted.show(resp.data.message, {
+                        theme: "",
+                        position: "top-center",
+                        className: "bg-green text-white rounded-full",
+                        type: "success",
+                        duration: 5000
+                    });
+                    this.addListing = false;
+                }).catch( err => (
                     console.log(err)
                 ))
             }
