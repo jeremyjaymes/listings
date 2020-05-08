@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'ListingController@index');
+Route::get('/', 'ListingController@index')->name('home');
 Route::resource('listings', 'ListingController');
+Route::post('/', 'ListingController@index');
 
 Route::get('/approvals', 'ListingApprovalController@index');
 Route::post('/approvals/{listing}', 'ListingApprovalController@store');

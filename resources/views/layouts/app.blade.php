@@ -37,7 +37,7 @@
                     @yield('content')
                 </div>
                 <div class="lg:w-1/5 mt-10">
-                    sidebar
+                    @yield('sidebar')
                 </div>
             </div>
         </main>

@@ -6,8 +6,8 @@
             <div class="flex flex-no-wrap w-full md:w-3/4 flex-col md:flex-row">
                 <div class="flex md:w-1/2">
                     <div class="listing_detail">
-                        <p class="text-xl font-bold">{{ listing.name }}</p>
-                        <address class="text-lg">
+                        <p class="text-xl font-bold text-gray-600">{{ listing.name }}</p>
+                        <address class="text-md not-italic">
                             <span class="block">{{ listing.street_address }}</span>
                             <span class="inline-block">{{ listing.city }}</span>
                             <span class="inline-block"></span>
