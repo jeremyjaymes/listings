@@ -31,7 +31,7 @@
             </div>
         </header>
         <main class="container mx-auto px-20">
-            @include('partials.search')
+            @yield('search')
             <div class="flex">
                 <div class="lg:w-4/5 bg-grey-lightest text-grey-light mt-10 pr-10">
                     @yield('content')

@@ -20,7 +20,9 @@
                         Describe Your Business
                     </label>
                     <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-            leading-tight focus:outline-none focus:shadow-outline" id="description" v-model="description"></textarea>
+            leading-tight focus:outline-none focus:shadow-outline" id="description" v-model="description"
+                              :maxlength="300"></textarea>
+                    <p class="text-sm text-gray-400 my-0">Characters: {{ characters }}</p>
                 </div>
                 <div class="px-4 py-2">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="contact-email">
@@ -63,11 +65,22 @@
                     zip: null
                 },
                 contact_email: null,
-                addListing: false
+                addListing: false,
+                characters: 300
             }
         },
-        mounted() {
-            console.log('Component mounted.')
+        watch: {
+            description: function() {
+
+                const textarea = document.getElementById("description");
+
+                textarea.addEventListener("input", event => {
+                    const target = event.currentTarget;
+                    const maxLength = target.getAttribute("maxlength");
+
+                    this.characters = maxLength - target.value.length;
+                });
+            }
         },
         methods: {
             add: function() {

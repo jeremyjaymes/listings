@@ -2,14 +2,22 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 class ListingTest extends TestCase
 {
     use RefreshDatabase,
         WithFaker;
+
+    public function setUp() : void
+    {
+        parent::setUp();
+        $this->seed(\StatesTableSeeder::class);
+    }
 
     /** @test */
     public function test_listings_are_displayed_on_home_page()

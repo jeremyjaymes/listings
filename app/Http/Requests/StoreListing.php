@@ -25,7 +25,8 @@ class StoreListing extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'contact_email' => 'required'
+            'contact_email' => 'required',
+            'description' => 'max:300'
         ];
     }
 }

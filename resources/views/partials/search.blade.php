@@ -8,8 +8,8 @@
                    autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false"
                    aria-label="search input" dir="auto" name="term">
         </form>
-        @if($term)
-            <p class="text-sm text-gray-500 mt-2 px-2">Results for: {{ $term }}
+        @if(isset($term))
+            <p class="text-sm text-gray-500 mt-2 px-2">Results for: {{ $term ?? ''}}
                 <a class="text-blue-300 px-4" href="{{ route('home') }}">remove</a></p>
         @endif
     </div>

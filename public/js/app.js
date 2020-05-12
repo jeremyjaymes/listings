@@ -2068,10 +2068,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['listing']
 });
@@ -2088,6 +2084,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _forms_Address__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../forms/Address */ "./resources/js/components/forms/Address.vue");
+//
+//
 //
 //
 //
@@ -2150,18 +2148,28 @@ __webpack_require__.r(__webpack_exports__);
         zip: null
       },
       contact_email: null,
-      addListing: false
+      addListing: false,
+      characters: 300
     };
   },
-  mounted: function mounted() {
-    console.log('Component mounted.');
+  watch: {
+    description: function description() {
+      var _this = this;
+
+      var textarea = document.getElementById("description");
+      textarea.addEventListener("input", function (event) {
+        var target = event.currentTarget;
+        var maxLength = target.getAttribute("maxlength");
+        _this.characters = maxLength - target.value.length;
+      });
+    }
   },
   methods: {
     add: function add() {
       this.addListing ? this.addListing = false : this.addListing = true;
     },
     create: function create() {
-      var _this = this;
+      var _this2 = this;
 
       var request = {
         name: this.name,
@@ -2174,7 +2182,7 @@ __webpack_require__.r(__webpack_exports__);
         tag_id: 1
       };
       axios.post('/listings', request).then(function (resp) {
-        _this.$toasted.show(resp.data.message, {
+        _this2.$toasted.show(resp.data.message, {
           theme: "",
           position: "top-center",
           className: "bg-green text-white rounded-full",
@@ -2182,7 +2190,7 @@ __webpack_require__.r(__webpack_exports__);
           duration: 5000
         });
 
-        _this.addListing = false;
+        _this2.addListing = false;
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -23392,48 +23400,52 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      {
-        staticClass:
-          "border-b border-gray-300 rounded-sm py-8 px-3 mb-2 w-full flex flex-wrap justify-between\n    hover:bg-gray-200 box-shadow"
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass:
-              "flex flex-no-wrap w-full md:w-3/4 flex-col md:flex-row"
-          },
-          [
-            _c("div", { staticClass: "flex md:w-1/2" }, [
-              _c("div", { staticClass: "listing_detail" }, [
-                _c("p", { staticClass: "text-xl font-bold" }, [
-                  _vm._v(_vm._s(_vm.listing.name))
-                ]),
-                _vm._v(" "),
-                _c("address", { staticClass: "text-lg" }, [
-                  _c("span", { staticClass: "block" }, [
-                    _vm._v(_vm._s(_vm.listing.street_address))
-                  ]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "inline-block" }, [
-                    _vm._v(_vm._s(_vm.listing.city))
-                  ]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "inline-block" })
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "flex flex-wrap" }, [
-              _vm._v("\n                Capabilities\n            ")
-            ])
-          ]
-        )
-      ]
-    )
+  return _c("div", { staticClass: "listing flex flex-col sm:flex-row" }, [
+    _c("div", { staticClass: "detail sm:w-1/3 sm:pr-6 sm:py-6" }, [
+      _c("p", { staticClass: "text-xl font-bold" }, [
+        _vm._v(_vm._s(_vm.listing.name))
+      ]),
+      _vm._v(" "),
+      _c("address", { staticClass: "text-lg not-italic" }, [
+        _c("span", { staticClass: "block" }, [
+          _vm._v(_vm._s(_vm.listing.street_address))
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "inline-block" }, [
+          _vm._v(
+            _vm._s(_vm.listing.city) +
+              ", " +
+              _vm._s(_vm.listing.state_name) +
+              ",\n                            " +
+              _vm._s(_vm.listing.zip)
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "h3",
+        {
+          staticClass:
+            "text-gray-500 uppercase tracking-wide font-bold text-sm lg:text-sm mt-10"
+        },
+        [_vm._v("Capabilities")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "description sm:w-2/3 sm:border-l pl-8 py-6" }, [
+      _c("p", { staticClass: "text-lg" }, [
+        _vm._v(_vm._s(_vm.listing.description))
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-3\n             border border-gray-400 rounded shadow my-4"
+        },
+        [_vm._v("Contact")]
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -23554,7 +23566,7 @@ var render = function() {
                     ],
                     staticClass:
                       "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n        leading-tight focus:outline-none focus:shadow-outline",
-                    attrs: { id: "description" },
+                    attrs: { id: "description", maxlength: 300 },
                     domProps: { value: _vm.description },
                     on: {
                       input: function($event) {
@@ -23564,7 +23576,11 @@ var render = function() {
                         _vm.description = $event.target.value
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-sm text-gray-400 my-0" }, [
+                    _vm._v("Characters: " + _vm._s(_vm.characters))
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "px-4 py-2" }, [

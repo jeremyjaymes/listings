@@ -1,22 +1,18 @@
 <template>
-    <div>
-        <div class="border-b border-gray-300 rounded-sm py-8 px-3 mb-2 w-full flex flex-wrap justify-between
-        hover:bg-gray-200 box-shadow">
-            <div class="flex flex-no-wrap w-full md:w-3/4 flex-col md:flex-row">
-                <div class="flex md:w-1/2">
-                    <div class="listing_detail">
-                        <p class="text-xl font-bold">{{ listing.name }}</p>
-                        <address class="text-lg">
-                            <span class="block">{{ listing.street_address }}</span>
-                            <span class="inline-block">{{ listing.city }}</span>
-                            <span class="inline-block"></span>
-                        </address>
-                    </div>
-                </div>
-                <div class="flex flex-wrap">
-                    Capabilities
-                </div>
-            </div>
+    <div class="listing flex flex-col sm:flex-row">
+        <div class="detail sm:w-1/3 sm:pr-6 sm:py-6">
+            <p class="text-xl font-bold">{{ listing.name }}</p>
+            <address class="text-lg not-italic">
+                <span class="block">{{ listing.street_address }}</span>
+                <span class="inline-block">{{ listing.city }}, {{ listing.state_name }},
+                                {{ listing.zip }}</span>
+            </address>
+            <h3 class="text-gray-500 uppercase tracking-wide font-bold text-sm lg:text-sm mt-10">Capabilities</h3>
+        </div>
+        <div class="description sm:w-2/3 sm:border-l pl-8 py-6">
+            <p class="text-lg">{{ listing.description }}</p>
+            <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-3
+                 border border-gray-400 rounded shadow my-4">Contact</button>
         </div>
     </div>
 </template>
