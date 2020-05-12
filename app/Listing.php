@@ -37,6 +37,16 @@ class Listing extends Model
         return State::where('id', $this->state_id)->first()->name;
     }
 
+    public function setPhoneAttribute($value)
+    {
+        $this->attributes['phone'] = preg_replace("/[^0-9]/", "", $value);
+    }
+
+    public function getPhoneAttribute($value)
+    {
+        return preg_replace("/^1?(\d{3})(\d{3})(\d{4})$/", "($1) $2-$3", $value);
+    }
+
     /**
      * Get the indexable data array for the model.
      *

@@ -2068,6 +2068,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['listing']
 });
@@ -23422,6 +23428,29 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
+      _c("div", { staticClass: "text-md mt-4" }, [
+        _c(
+          "h3",
+          {
+            staticClass:
+              "text-gray-500 uppercase tracking-wide font-bold text-sm lg:text-sm mt-10"
+          },
+          [_vm._v("Contact")]
+        ),
+        _vm._v(" "),
+        _c("span", { staticClass: "block" }, [
+          _vm._v(_vm._s(_vm.listing.website))
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "block" }, [
+          _vm._v(_vm._s(_vm.listing.company_email))
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "block" }, [
+          _vm._v(_vm._s(_vm.listing.phone))
+        ])
+      ]),
+      _vm._v(" "),
       _c(
         "h3",
         {
@@ -23437,14 +23466,16 @@ var render = function() {
         _vm._v(_vm._s(_vm.listing.description))
       ]),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass:
-            "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-3\n             border border-gray-400 rounded shadow my-4"
-        },
-        [_vm._v("Contact")]
-      )
+      _vm.listing.company_email
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-3\n             border border-gray-400 rounded shadow my-4"
+            },
+            [_vm._v("Send Email")]
+          )
+        : _vm._e()
     ])
   ])
 }

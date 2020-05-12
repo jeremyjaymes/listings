@@ -23,7 +23,7 @@ class CreateListingsTable extends Migration
             $table->string('zip', 10)->nullable();
             $table->float('lat', 10, 6)->nullable();
             $table->float('long', 10, 6)->nullable();
-            $table->string('phone')->nullable();
+            $table->bigInteger('phone')->nullable()->unsigned();
             $table->string('company_email')->nullable();
             $table->string('contact_email');
             $table->string('website')->nullable();
