@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/', 'ListingController@index')->name('home');
 Route::resource('listings', 'ListingController');
