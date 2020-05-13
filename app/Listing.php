@@ -57,4 +57,14 @@ class Listing extends Model
         $array = $this->toArray();
         return $array;
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category', 'listing_category');
+    }
 }

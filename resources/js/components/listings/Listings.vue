@@ -15,8 +15,9 @@
                         </address>
                     </div>
                 </div>
-                <div class="flex flex-wrap">
-                    Capabilities
+                <div class="tags">
+                    <span class="bg-white hover:bg-gray-100 text-gray-800 text-sm font-semibold
+                    py-1 px-2 border border-gray-400 rounded" v-for="tag in listing.tags">{{ tag.name }}</span>
                 </div>
             </div>
         </div>
@@ -25,6 +26,6 @@
 
 <script>
     export default {
-        props: ['listings']
+        props: ['listings', 'tags']
     }
 </script>

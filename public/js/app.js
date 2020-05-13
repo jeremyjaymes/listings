@@ -1919,7 +1919,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['categories']
+  props: ['categories', 'title']
 });
 
 /***/ }),
@@ -2240,8 +2240,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['listings']
+  props: ['listings', 'tags']
 });
 
 /***/ }),
@@ -23127,7 +23128,7 @@ var render = function() {
         staticClass:
           "text-gray-500 uppercase tracking-wide font-bold text-sm lg:text-sm"
       },
-      [_vm._v("Categories")]
+      [_vm._v(_vm._s(_vm.title))]
     ),
     _vm._v(" "),
     _c(
@@ -23763,9 +23764,21 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "flex flex-wrap" }, [
-                _vm._v("\n                Capabilities\n            ")
-              ])
+              _c(
+                "div",
+                { staticClass: "tags" },
+                _vm._l(listing.tags, function(tag) {
+                  return _c(
+                    "span",
+                    {
+                      staticClass:
+                        "bg-white hover:bg-gray-100 text-gray-800 text-sm font-semibold\n                py-1 px-2 border border-gray-400 rounded"
+                    },
+                    [_vm._v(_vm._s(tag.name))]
+                  )
+                }),
+                0
+              )
             ]
           )
         ]

@@ -9,9 +9,9 @@
 @endsection
 
 @section('content')
-    <listings :listings="{{$listings->toJson()}}"></listings>
+    <listings :listings='@json($listings)'></listings>
 @endsection
 
 @section('sidebar')
-    <sidebar :categories="{{ $tags }}"></sidebar>
+    <sidebar :categories="{{ $categories }}" title="{{ config('listings.category_title') }}"></sidebar>
 @endsection

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SearchRequest;
 use App\Http\Requests\StoreListing;
 use App\Mail\ListingRequiresApproval;
-use App\Tag;
+use App\Category;
 use Illuminate\Http\Request;
 use App\Listing;
 use Illuminate\Http\Response;
@@ -21,9 +21,9 @@ class ListingController extends Controller
     public function index(SearchRequest $request)
     {
 
-        $listings = Listing::where('is_approved', true)->get();
+        $listings = Listing::where('is_approved', true)->with('tags')->get();
         $states = \App\State::all();
-        $tags = Tag::all();
+        $categories = Category::all();
 
         $term = null;
         if ($request->term) {
@@ -31,7 +31,8 @@ class ListingController extends Controller
             $listings = Listing::search($request->term)->get();
         }
 
-        return response()->view('listing.index', compact('listings', 'states', 'term', 'tags'));
+        return response()->view('listing.index',
+            compact('listings', 'states', 'term', 'categories'));
     }
 
     /**

@@ -30,6 +30,9 @@ class ListingTableSeeder extends Seeder
         $listing->tag_id = 1;
         $listing->save();
 
+        $listing->tags()->save(\App\Tag::first());
+        $listing->categories()->save(\App\Category::first());
+
         $listing2 = new Listing;
         $listing2->name = 'USA Co.';
         $listing2->street_address = '12 American St.';

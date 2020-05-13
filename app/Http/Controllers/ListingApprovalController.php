@@ -12,6 +12,8 @@ class ListingApprovalController extends Controller
      */
     public function index()
     {
+        $this->authorize('update', Listing::class);
+
         return response()->view(
             'approvals.index',
             [
@@ -26,6 +28,8 @@ class ListingApprovalController extends Controller
      */
     public function store(Listing $listing)
     {
+        $this->authorize('update', Listing::class);
+
         $listing->update(['is_approved' => true]);
 
         return response()->json([

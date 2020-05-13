@@ -12,8 +12,8 @@ class TagsTableSeeder extends Seeder
      */
     public function run()
     {
-        $category = new Tag;
-        $category->name = 'Machine Shops';
-        $category->save();
+        $tag = new Tag;
+        $tag->name = 'Waterjet Cutting';
+        $tag->save();
     }
 }
