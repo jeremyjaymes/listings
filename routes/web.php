@@ -19,5 +19,9 @@ Route::get('/', 'ListingController@index')->name('home');
 Route::resource('listings', 'ListingController');
 Route::post('/', 'ListingController@index');
 
-Route::get('/approvals', 'ListingApprovalController@index');
-Route::post('/approvals/{listing}', 'ListingApprovalController@store');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/approvals', 'ListingApprovalController@index');
+    Route::post('/approvals/{listing}', 'ListingApprovalController@store');
+
+    Route::resource('categories', 'CategoryController');
+});

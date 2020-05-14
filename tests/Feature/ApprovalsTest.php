@@ -23,6 +23,7 @@ class ApprovalsTest extends TestCase
      */
     public function test_a_listing_can_be_approved()
     {
+        $this->signInAsAdmin();
         $listing = factory(\App\Listing::class)->create();
 
         $response = $this->post('/approvals/' . $listing->id);

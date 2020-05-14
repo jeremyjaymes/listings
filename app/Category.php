@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    protected $fillable = [
+        'name'
+    ];
+
     public function listings()
     {
         return $this->belongsToMany('App\Listing', 'listing_category');
