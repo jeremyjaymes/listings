@@ -42,7 +42,12 @@ class ListingTest extends TestCase
             'state_id' => 52,
             'phone' => $this->faker->phoneNumber,
             'website' => $this->faker->safeEmailDomain,
-            'tag_id' => $tag->id,
+            'tagsArray' => [
+                [
+                    'key' => $this->faker->word,
+                    'value' => $this->faker->word
+                ]
+            ],
         ];
 
         $response = $this->post('/listings', $request);
