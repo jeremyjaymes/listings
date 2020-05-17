@@ -29,7 +29,6 @@ $factory->define(Listing::class, function (Faker $faker) {
         'state_id' => 52,
         'phone' => $faker->phoneNumber,
         'website' => $faker->safeEmailDomain,
-        'tag_id' => 1,
         'is_approved' => 1
     ];
 });

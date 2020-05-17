@@ -22,6 +22,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@voerro/vue-tagsinput": "^2.2.0",
         "tailwindcss": "^1.4.5",
         "vue-toasted": "^1.1.28"
     }

@@ -27,7 +27,6 @@ class ListingTableSeeder extends Seeder
         $listing->website = 'https:://example.org';
         $listing->contact_email = 'jeremy@papertreedesign.com';
         $listing->is_approved = true;
-        $listing->tag_id = 1;
         $listing->save();
 
         $listing->tags()->save(\App\Tag::first());
@@ -44,7 +43,6 @@ class ListingTableSeeder extends Seeder
         $listing2->website = 'https:://example.org';
         $listing2->contact_email = 'jeremy@papertreedesign.com';
         $listing2->is_approved = true;
-        $listing2->tag_id = 1;
         $listing2->save();
     }
 }

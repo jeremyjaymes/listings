@@ -6,6 +6,7 @@ use App\Http\Requests\SearchRequest;
 use App\Http\Requests\StoreListing;
 use App\Mail\ListingRequiresApproval;
 use App\Category;
+use App\Tag;
 use Illuminate\Http\Request;
 use App\Listing;
 use Illuminate\Http\Response;
@@ -24,6 +25,7 @@ class ListingController extends Controller
         $listings = Listing::where('is_approved', true)->with('tags')->get();
         $states = \App\State::all();
         $categories = Category::all();
+        $tags = Tag::all()->pluck('name');
 
         $term = null;
         if ($request->term) {
@@ -32,7 +34,7 @@ class ListingController extends Controller
         }
 
         return response()->view('listing.index',
-            compact('listings', 'states', 'term', 'categories'));
+            compact('listings', 'states', 'term', 'categories', 'tags'));
     }
 
     /**
@@ -52,6 +54,15 @@ class ListingController extends Controller
     public function store(StoreListing $request)
     {
         $listing = Listing::create($request->input());
+
+        if ($request->tagsArray) {
+            foreach ($request->tagsArray as $tag) {
+                $t = Tag::create(['name' => $tag['value']]);
+                $listing->tags()->attach($t->id);
+            }
+        }
+
+        $listing->categories()->attach($request->category_id);
 
         if ($listing) {
             Mail::to(env('ADMIN_EMAIL'))->send(new ListingRequiresApproval());

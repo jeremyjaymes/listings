@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('button')
-    <listing-create :states="{{ $states }}"></listing-create>
+    <listing-create :categories="{{ $categories }}" :tags='@json($tags)' :states="{{ $states }}"></listing-create>
 @endsection
 
 @section('search')
