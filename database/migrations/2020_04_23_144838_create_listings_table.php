@@ -27,6 +27,7 @@ class CreateListingsTable extends Migration
             $table->string('company_email')->nullable();
             $table->string('contact_email');
             $table->string('website')->nullable();
+            $table->boolean('display_contact')->default(false);
             $table->boolean('is_approved')->default(false);
             $table->timestamps();
         });

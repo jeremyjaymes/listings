@@ -22,7 +22,14 @@ class ListingController extends Controller
     public function index(SearchRequest $request)
     {
 
-        $listings = Listing::where('is_approved', true)->with('tags')->get();
+        $listings = Listing::where('is_approved', true)
+            ->with('tags', 'categories')
+            ->get();
+
+        if ($request->category) {
+            $listings->whereCategory($request->category);
+        }
+
         $states = \App\State::all();
         $categories = Category::all();
         $tags = Tag::all()->pluck('name');
@@ -81,7 +88,7 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
-        return response()->view('listing.show', ['listing' => $listing]);
+        return response()->view('listing.show', ['listing' => $listing->load('tags', 'categories')]);
     }
 
     /**

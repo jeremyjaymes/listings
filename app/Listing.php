@@ -18,6 +18,10 @@ class Listing extends Model
         'state_id',
         'zip',
         'contact_email',
+        'company_email',
+        'phone',
+        'website',
+        'display_contact',
         'tag_id'
     ];
 
@@ -58,13 +62,26 @@ class Listing extends Model
         return $array;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function tags()
     {
         return $this->belongsToMany('App\Tag');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function categories()
     {
         return $this->belongsToMany('App\Category', 'listing_category');
+    }
+
+    public function scopeWhereCategory($query, $category)
+    {
+        return $query->whereHas('categories', function ($q) use ($category) {
+            $q->where('slug', '=', $category);
+        });
     }
 }

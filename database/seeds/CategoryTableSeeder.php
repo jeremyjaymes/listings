@@ -14,6 +14,7 @@ class CategoryTableSeeder extends Seeder
     {
         $category = new Category;
         $category->name = 'Machine Shop';
+        $category->slug = 'Machine Shop';
         $category->save();
     }
 }

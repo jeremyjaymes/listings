@@ -10,6 +10,11 @@ class Category extends Model
         'name'
     ];
 
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = strtolower(str_replace(' ', '-', $value));
+    }
+
     public function listings()
     {
         return $this->belongsToMany('App\Listing', 'listing_category');

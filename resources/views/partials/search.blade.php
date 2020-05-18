@@ -1,10 +1,10 @@
 <div class="flex items-center mb-4">
-    <div class="flex-auto lg:w-2/3">
+    <div class="flex-auto lg:w-full">
         <form action="" method="POST">
             {{ csrf_field() }}
             <input id="search" class="transition-colors duration-100 ease-in-out focus:outline-0 border
-       border-transparent focus:bg-white focus:border-gray-300 placeholder-gray-600 rounded-lg bg-gray-200
-       p-3 block w-full appearance-none leading-normal ds-input" type="text" placeholder="Search the listings"
+       border-transparent focus:bg-white focus:border-gray-300 placeholder-gray-600 rounded-lg bg-white
+       p-3 block w-full appearance-none leading-normal ds-input shadow-lg" type="text" placeholder="Search the listings"
                    autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false"
                    aria-label="search input" dir="auto" name="term">
         </form>

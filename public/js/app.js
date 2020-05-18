@@ -2223,8 +2223,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['listing']
+  props: ['listing', 'tag-title', 'category-title']
 });
 
 /***/ }),
@@ -2240,6 +2245,57 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _forms_Address__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../forms/Address */ "./resources/js/components/forms/Address.vue");
 /* harmony import */ var _voerro_vue_tagsinput__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @voerro/vue-tagsinput */ "./node_modules/@voerro/vue-tagsinput/src/main.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2327,8 +2383,13 @@ __webpack_require__.r(__webpack_exports__);
       tagsArray: [],
       existingTags: [],
       contact_email: null,
+      company_email: null,
+      phone: null,
+      website: null,
+      display_contact: false,
       addListing: false,
-      characters: 300
+      characters: 300,
+      errors: []
     };
   },
   mounted: function mounted() {
@@ -2357,9 +2418,44 @@ __webpack_require__.r(__webpack_exports__);
     add: function add() {
       this.addListing ? this.addListing = false : this.addListing = true;
     },
+    removeError: function removeError(value) {
+      if (!this.errors) return;
+      console.log(value);
+      this.errors = this.errors.filter(function (e) {
+        console.log(Object.keys(e));
+        return Object.keys(e) != value;
+      });
+    },
+    validate: function validate() {
+      if (this.name && this.category_id) {
+        return true;
+      }
+
+      this.errors = [];
+
+      if (!this.name) {
+        this.errors.push({
+          'name': 'Name required.'
+        });
+      }
+
+      if (!this.category_id) {
+        this.errors.push({
+          'category': 'Category required.'
+        });
+      }
+
+      if (!this.contact_email) {
+        this.errors.push({
+          'email': 'Please enter a contact email.'
+        });
+      }
+    },
     create: function create() {
       var _this2 = this;
 
+      this.validate();
+      if (this.errors.length > 0) return;
       var request = {
         name: this.name,
         description: this.description,
@@ -2368,10 +2464,16 @@ __webpack_require__.r(__webpack_exports__);
         state_id: this.address.state_id,
         zip: this.address.zip,
         contact_email: this.contact_email,
+        company_email: this.company_email,
+        phone: this.phone,
+        website: this.website,
+        display_contact: this.display_contact,
         tagsArray: this.tagsArray,
         category_id: this.category_id
       };
       axios.post('/listings', request).then(function (resp) {
+        console.log('submit');
+
         _this2.$toasted.show(resp.data.message, {
           theme: "",
           position: "top-center",
@@ -2382,7 +2484,12 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.addListing = false;
       })["catch"](function (err) {
-        return console.log(err);
+        return _this2.$toasted.show(err, {
+          theme: "",
+          position: "top-center",
+          className: "bg-red text-white rounded-full",
+          duration: 5000
+        });
       });
     }
   }
@@ -2425,8 +2532,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['listings', 'tags']
+  props: ['listings', 'tags'],
+  methods: {
+    badge: function badge(value) {
+      return value.substring(0, 1);
+    }
+  }
 });
 
 /***/ }),
@@ -24392,7 +24511,9 @@ var render = function() {
       { staticClass: "mt-4 text-gray-600" },
       _vm._l(_vm.categories, function(category) {
         return _c("li", [
-          _vm._v("\n            " + _vm._s(category.name) + "\n        ")
+          _c("a", { attrs: { href: "?category=" + category.slug } }, [
+            _vm._v(_vm._s(category.name))
+          ])
         ])
       }),
       0
@@ -24599,7 +24720,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "px-4 py-2" }, [
-      _c("label", { attrs: { for: "street" } }, [_vm._v("Street Address")]),
+      _c(
+        "label",
+        {
+          staticClass: "block text-gray-700 text-sm font-bold mb-2",
+          attrs: { for: "street" }
+        },
+        [_vm._v("Street Address")]
+      ),
       _vm._v(" "),
       _c("input", {
         directives: [
@@ -24627,7 +24755,14 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "flex items-center" }, [
       _c("div", { staticClass: "flex-1 px-4 py-2" }, [
-        _c("label", { attrs: { for: "city" } }, [_vm._v("City")]),
+        _c(
+          "label",
+          {
+            staticClass: "block text-gray-700 text-sm font-bold mb-2",
+            attrs: { for: "city" }
+          },
+          [_vm._v("City")]
+        ),
         _vm._v(" "),
         _c("input", {
           directives: [
@@ -24654,7 +24789,14 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "flex-1 px-4 py-2" }, [
-        _c("label", { attrs: { for: "state" } }, [_vm._v("State")]),
+        _c(
+          "label",
+          {
+            staticClass: "block text-gray-700 text-sm font-bold mb-2",
+            attrs: { for: "state" }
+          },
+          [_vm._v("State")]
+        ),
         _vm._v(" "),
         _c(
           "select",
@@ -24698,7 +24840,14 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "flex-1 px-4 py-2" }, [
-        _c("label", { attrs: { for: "zip" } }, [_vm._v("Zip")]),
+        _c(
+          "label",
+          {
+            staticClass: "block text-gray-700 text-sm font-bold mb-2",
+            attrs: { for: "zip" }
+          },
+          [_vm._v("Zip")]
+        ),
         _vm._v(" "),
         _c("input", {
           directives: [
@@ -24749,74 +24898,90 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "listing flex flex-col sm:flex-row" }, [
-    _c("div", { staticClass: "detail sm:w-1/3 sm:pr-6 sm:py-6" }, [
-      _c("p", { staticClass: "text-xl font-bold" }, [
-        _vm._v(_vm._s(_vm.listing.name))
-      ]),
-      _vm._v(" "),
-      _c("address", { staticClass: "text-lg not-italic" }, [
-        _c("span", { staticClass: "block" }, [
-          _vm._v(_vm._s(_vm.listing.street_address))
+    _c(
+      "div",
+      { staticClass: "detail sm:w-1/3 sm:pr-6 sm:py-6" },
+      [
+        _c("p", { staticClass: "text-xl font-bold" }, [
+          _vm._v(_vm._s(_vm.listing.name))
         ]),
         _vm._v(" "),
-        _c("span", { staticClass: "inline-block" }, [
-          _vm._v(
-            _vm._s(_vm.listing.city) +
-              ", " +
-              _vm._s(_vm.listing.state_name) +
-              ",\n                            " +
-              _vm._s(_vm.listing.zip)
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "text-md mt-4" }, [
+        _c("address", { staticClass: "text-lg not-italic" }, [
+          _c("span", { staticClass: "block" }, [
+            _vm._v(_vm._s(_vm.listing.street_address))
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "inline-block" }, [
+            _vm._v(
+              _vm._s(_vm.listing.city) +
+                ", " +
+                _vm._s(_vm.listing.state_name) +
+                ",\n                            " +
+                _vm._s(_vm.listing.zip)
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "text-md mt-4" }, [
+          _c(
+            "h3",
+            {
+              staticClass:
+                "text-gray-500 uppercase tracking-wide font-bold text-sm lg:text-sm mt-10"
+            },
+            [_vm._v("Contact")]
+          ),
+          _vm._v(" "),
+          _c("span", { staticClass: "block" }, [
+            _vm._v(_vm._s(_vm.listing.website))
+          ]),
+          _vm._v(" "),
+          _vm.listing.display_contact
+            ? _c("span", { staticClass: "block" }, [
+                _vm._v(_vm._s(_vm.listing.company_email))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.listing.display_contact
+            ? _c("span", { staticClass: "block" }, [
+                _vm._v(_vm._s(_vm.listing.phone))
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
         _c(
           "h3",
           {
             staticClass:
               "text-gray-500 uppercase tracking-wide font-bold text-sm lg:text-sm mt-10"
           },
-          [_vm._v("Contact")]
+          [_vm._v(_vm._s(_vm.tagTitle))]
         ),
         _vm._v(" "),
-        _c("span", { staticClass: "block" }, [
-          _vm._v(_vm._s(_vm.listing.website))
-        ]),
-        _vm._v(" "),
-        _c("span", { staticClass: "block" }, [
-          _vm._v(_vm._s(_vm.listing.company_email))
-        ]),
-        _vm._v(" "),
-        _c("span", { staticClass: "block" }, [
-          _vm._v(_vm._s(_vm.listing.phone))
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "h3",
-        {
-          staticClass:
-            "text-gray-500 uppercase tracking-wide font-bold text-sm lg:text-sm mt-10"
-        },
-        [_vm._v("Capabilities")]
-      )
-    ]),
+        _vm._l(_vm.listing.tags, function(tag) {
+          return _c("span", [_vm._v(_vm._s(tag.name))])
+        })
+      ],
+      2
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "description sm:w-2/3 sm:border-l pl-8 py-6" }, [
       _c("p", { staticClass: "text-lg" }, [
         _vm._v(_vm._s(_vm.listing.description))
       ]),
       _vm._v(" "),
-      _vm.listing.company_email
-        ? _c(
-            "button",
-            {
-              staticClass:
-                "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-3\n             border border-gray-400 rounded shadow my-4"
-            },
-            [_vm._v("Send Email")]
-          )
+      _vm.listing.company_email && _vm.listing.display_contact
+        ? _c("div", { staticClass: "mt-8" }, [
+            _c(
+              "a",
+              {
+                staticClass:
+                  "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-3\n             border border-gray-400 rounded shadow my-4",
+                attrs: { href: "mailto:" + _vm.listing.company_email }
+              },
+              [_vm._v("Send Email")]
+            )
+          ])
         : _vm._e()
     ])
   ])
@@ -24851,7 +25016,7 @@ var render = function() {
             "button",
             {
               staticClass:
-                "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4\n            border-blue-700\n    hover:border-blue-500 rounded",
+                "bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4\n            border-blue-900\n    hover:border-blue-500 rounded",
               on: {
                 click: function($event) {
                   $event.preventDefault()
@@ -24872,47 +25037,66 @@ var render = function() {
                 attrs: { id: "createListing" }
               },
               [
-                _c("div", { staticClass: "px-4 py-2" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "block text-gray-700 text-sm font-bold mb-2",
-                      attrs: { for: "name" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                    Business Name\n                "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
+                _c(
+                  "div",
+                  { staticClass: "px-4 py-2" },
+                  [
+                    _c(
+                      "label",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.name,
-                        expression: "name"
-                      }
-                    ],
-                    staticClass:
-                      "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n        leading-tight focus:outline-none focus:shadow-outline",
-                    attrs: {
-                      id: "name",
-                      type: "text",
-                      placeholder: "USA Manufacturing"
-                    },
-                    domProps: { value: _vm.name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                        staticClass:
+                          "block text-gray-700 text-sm font-bold mb-2",
+                        attrs: { for: "name" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                    Business Name\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.name,
+                          expression: "name"
                         }
-                        _vm.name = $event.target.value
+                      ],
+                      staticClass:
+                        "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n        leading-tight focus:outline-none focus:shadow-outline",
+                      attrs: {
+                        id: "name",
+                        type: "text",
+                        placeholder: "USA Manufacturing"
+                      },
+                      domProps: { value: _vm.name },
+                      on: {
+                        change: function($event) {
+                          return _vm.removeError("name")
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.name = $event.target.value
+                        }
                       }
-                    }
-                  })
-                ]),
+                    }),
+                    _vm._v(" "),
+                    _vm._l(_vm.errors, function(error) {
+                      return error.name
+                        ? _c(
+                            "p",
+                            { staticClass: "text-red-500 text-xs italic" },
+                            [_vm._v(_vm._s(error.name))]
+                          )
+                        : _vm._e()
+                    })
+                  ],
+                  2
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "px-4 py-2" }, [
                   _c(
@@ -24957,59 +25141,91 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "flex items-center" }, [
-                  _c("div", { staticClass: "flex-1 px-4 py-2" }, [
-                    _c("label", { attrs: { for: "category" } }, [
-                      _vm._v("Select Category")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.category_id,
-                            expression: "category_id"
+                  _c(
+                    "div",
+                    { staticClass: "flex-1 px-4 py-2" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "block text-gray-700 text-sm font-bold mb-2",
+                          attrs: { for: "category" }
+                        },
+                        [_vm._v("Select Category")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.category_id,
+                              expression: "category_id"
+                            }
+                          ],
+                          staticClass:
+                            "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline",
+                          attrs: { id: "category" },
+                          on: {
+                            change: [
+                              function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.category_id = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              },
+                              function($event) {
+                                return _vm.removeError("category")
+                              }
+                            ]
                           }
-                        ],
-                        staticClass:
-                          "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline",
-                        attrs: { id: "category" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.category_id = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      },
-                      _vm._l(_vm.categories, function(category) {
-                        return _c(
-                          "option",
-                          { domProps: { value: category.id } },
-                          [_vm._v(_vm._s(category.name))]
-                        )
-                      }),
-                      0
-                    )
-                  ]),
+                        },
+                        _vm._l(_vm.categories, function(category) {
+                          return _c(
+                            "option",
+                            { domProps: { value: category.id } },
+                            [_vm._v(_vm._s(category.name))]
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.errors, function(error) {
+                        return error.category
+                          ? _c(
+                              "p",
+                              { staticClass: "text-red-500 text-xs italic" },
+                              [_vm._v(_vm._s(error.category))]
+                            )
+                          : _vm._e()
+                      })
+                    ],
+                    2
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",
                     { staticClass: "flex-1 px-4 py-2" },
                     [
-                      _c("label", { attrs: { for: "tags" } }, [
-                        _vm._v("Enter Tags")
-                      ]),
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "block text-gray-700 text-sm font-bold mb-2",
+                          attrs: { for: "tags" }
+                        },
+                        [_vm._v("Enter Tags")]
+                      ),
                       _vm._v(" "),
                       _c("tags-input", {
                         attrs: {
@@ -25018,6 +25234,7 @@ var render = function() {
                           "wrapper-class":
                             "bg-white shadow appearance-none border rounded w-full text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline px-2",
                           "existing-tags": _vm.tags,
+                          "add-tags-on-blur": true,
                           typeahead: true
                         },
                         model: {
@@ -25032,17 +25249,80 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "flex-1 px-4 py-2" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "block text-gray-700 text-sm font-bold mb-2",
+                          attrs: { for: "contact-email" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                       Personal Contact Email\n                    "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.contact_email,
+                            expression: "contact_email"
+                          }
+                        ],
+                        staticClass:
+                          "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline",
+                        attrs: {
+                          id: "contact-email",
+                          type: "text",
+                          placeholder: "hello@example.org"
+                        },
+                        domProps: { value: _vm.contact_email },
+                        on: {
+                          change: function($event) {
+                            return _vm.removeError("email")
+                          },
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.contact_email = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm._l(_vm.errors, function(error) {
+                        return error.email
+                          ? _c(
+                              "p",
+                              { staticClass: "text-red-500 text-xs italic" },
+                              [_vm._v(_vm._s(error.email))]
+                            )
+                          : _vm._e()
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "flex items-center" }, [
                   _c("div", { staticClass: "flex-1 px-4 py-2" }, [
                     _c(
                       "label",
                       {
                         staticClass:
                           "block text-gray-700 text-sm font-bold mb-2",
-                        attrs: { for: "contact-email" }
+                        attrs: { for: "company-email" }
                       },
                       [
                         _vm._v(
-                          "\n                        Contact Email\n                    "
+                          "\n                        Company Email\n                    "
                         )
                       ]
                     ),
@@ -25052,24 +25332,114 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.contact_email,
-                          expression: "contact_email"
+                          value: _vm.company_email,
+                          expression: "company_email"
                         }
                       ],
                       staticClass:
                         "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline",
                       attrs: {
-                        id: "contact-email",
+                        id: "company-email",
                         type: "text",
-                        placeholder: "USA Manufacturing"
+                        placeholder: "hello@example.org"
                       },
-                      domProps: { value: _vm.contact_email },
+                      domProps: { value: _vm.company_email },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.contact_email = $event.target.value
+                          _vm.company_email = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-gray-600 text-xs italic" }, [
+                      _vm._v("Displayed with listing.")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "flex-1 px-4 py-2" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "block text-gray-700 text-sm font-bold mb-2",
+                        attrs: { for: "phone" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Phone\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.phone,
+                          expression: "phone"
+                        }
+                      ],
+                      staticClass:
+                        "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline",
+                      attrs: {
+                        id: "phone",
+                        type: "text",
+                        placeholder: "(222) 333-4444"
+                      },
+                      domProps: { value: _vm.phone },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.phone = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "flex-1 px-4 py-2" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "block text-gray-700 text-sm font-bold mb-2",
+                        attrs: { for: "website" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Website\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.website,
+                          expression: "website"
+                        }
+                      ],
+                      staticClass:
+                        "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline",
+                      attrs: {
+                        id: "website",
+                        type: "text",
+                        placeholder: "https://example.org"
+                      },
+                      domProps: { value: _vm.website },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.website = $event.target.value
                         }
                       }
                     })
@@ -25079,6 +25449,68 @@ var render = function() {
                 _c("street-address", {
                   attrs: { address: _vm.address, states: _vm.states }
                 }),
+                _vm._v(" "),
+                _c("div", { staticClass: "px-4 py-2" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "block text-gray-700 text-sm font-bold mb-2",
+                      attrs: { for: "display" }
+                    },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.display_contact,
+                            expression: "display_contact"
+                          }
+                        ],
+                        staticClass: "mr-2 leading-tight",
+                        attrs: { id: "display", type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.display_contact)
+                            ? _vm._i(_vm.display_contact, null) > -1
+                            : _vm.display_contact
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.display_contact,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  (_vm.display_contact = $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  (_vm.display_contact = $$a
+                                    .slice(0, $$i)
+                                    .concat($$a.slice($$i + 1)))
+                              }
+                            } else {
+                              _vm.display_contact = $$c
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text-sm" }, [
+                        _vm._v(
+                          "\n                        Display contact info with my listing. (Company Email, Phone)\n                        "
+                        ),
+                        _c("span", { staticClass: "font-normal italic" }, [
+                          _vm._v(
+                            "\n                             We will not share your personal contact email.\n                        "
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "px-4 py-4" }, [
                   _c(
@@ -25147,53 +25579,86 @@ var render = function() {
         "div",
         {
           staticClass:
-            "border-b border-gray-300 rounded-sm py-8 px-3 mb-2 w-full flex flex-wrap justify-between\n    hover:bg-gray-200 box-shadow"
+            "py-6 px-6 mb-8 w-full flex flex-wrap justify-between bg-white\n    hover:bg-gray-200 box-max-w-sm rounded shadow-lg"
         },
         [
           _c(
             "div",
-            {
-              staticClass:
-                "flex flex-no-wrap w-full md:w-3/4 flex-col md:flex-row"
-            },
+            { staticClass: "flex flex-no-wrap w-full flex-col md:flex-row" },
             [
-              _c("div", { staticClass: "flex md:w-1/2" }, [
-                _c("div", { staticClass: "listing_detail" }, [
-                  _c("p", { staticClass: "text-xl font-bold text-gray-600" }, [
-                    _vm._v(_vm._s(listing.name))
-                  ]),
-                  _vm._v(" "),
-                  _c("address", { staticClass: "text-md not-italic" }, [
-                    _c("span", { staticClass: "block" }, [
-                      _vm._v(_vm._s(listing.street_address))
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "inline-block" }, [
-                      _vm._v(
-                        _vm._s(listing.city) +
-                          ", " +
-                          _vm._s(listing.state_name) +
-                          ",\n                            " +
-                          _vm._s(listing.zip)
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "inline-block" })
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "bg-gray-300 rounded-full h-16 w-16 flex items-center justify-center mr-6 -mx-12"
+                },
+                [
+                  _c("span", { staticClass: "text-2xl" }, [
+                    _vm._v(_vm._s(_vm.badge(listing.name)))
                   ])
-                ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "md:w-3/4 listing_detail" }, [
+                _c(
+                  "h2",
+                  { staticClass: "text-xl font-semibold text-gray-700" },
+                  [
+                    _c("a", { attrs: { href: /listings/ + listing.id } }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(listing.name) +
+                          "\n                    "
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-md mt-2" }, [
+                  _vm._v(_vm._s(listing.state_name))
+                ]),
+                _vm._v(" "),
+                listing.phone && listing.display_contact === 1
+                  ? _c("p", { staticClass: "text-md mt-2" }, [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(listing.phone) +
+                          "\n                "
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                listing.website
+                  ? _c("p", { staticClass: "text-md" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "text-blue-300",
+                          attrs: { href: listing.website }
+                        },
+                        [_vm._v(_vm._s(listing.website))]
+                      )
+                    ])
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "tags" },
+                { staticClass: "tags md:w-1/4 text-right" },
                 _vm._l(listing.tags, function(tag) {
                   return _c(
                     "span",
                     {
                       staticClass:
-                        "bg-white hover:bg-gray-100 text-gray-800 text-sm font-semibold\n                py-1 px-2 border border-gray-400 rounded"
+                        "inline-block bg-gray-200 rounded-full px-3 py-1\n                text-sm font-semibold text-gray-700 mr-2"
                     },
-                    [_vm._v(_vm._s(tag.name))]
+                    [
+                      _vm._v(
+                        "\n                    #" +
+                          _vm._s(tag.name) +
+                          "\n                "
+                      )
+                    ]
                   )
                 }),
                 0

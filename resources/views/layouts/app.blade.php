@@ -19,18 +19,18 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-100">
     <div id="app">
-        <header class="py-12 bg-gray-200 border-b mb-10">
+        <header class="py-12 bg-blue-500 border-b mb-10">
             <div class="container mx-auto">
-                <h1 class="text-5xl text-center text-gray-600 font-black">{{ config('app.name', 'Listings') }}</h1>
-                <p class="text-4xl text-center font-bold mb-8">{{ config('app.tagline', 'A Directory Application') }}</p>
+                <h1 class="text-5xl text-center text-white font-black">{{ config('app.name', 'Listings') }}</h1>
+                <p class="text-4xl text-center text-white font-bold mb-8">{{ config('app.tagline', 'A Directory Application') }}</p>
                 <div class="pt-2 pb-2 text-center">
                     @yield('button')
                 </div>
             </div>
         </header>
-        <main class="container mx-auto px-20">
+        <main class="container mx-auto pb-20 px-20">
             @yield('search')
             <div class="flex">
                 <div class="lg:w-4/5 bg-grey-lightest text-grey-light mt-10 pr-10">
@@ -41,6 +41,11 @@
                 </div>
             </div>
         </main>
+        <footer class="container mx-auto py-6 px-20">
+            <div class="flex">
+                <div class="lg:w-1/2">Copyright {{ date('Y') }} {{ config('app.name', 'Listings') }}</div>
+            </div>
+        </footer>
     </div>
 </body>
 @stack('scripts')
