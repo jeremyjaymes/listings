@@ -25517,7 +25517,7 @@ var render = function() {
                     "button",
                     {
                       staticClass:
-                        "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4\n            border-blue-700 hover:border-blue-500 rounded",
+                        "bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4\n            border-blue-900 hover:border-blue-500 rounded",
                       on: {
                         click: function($event) {
                           $event.preventDefault()
@@ -25531,7 +25531,7 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      staticClass: "px-2 text-gray-500",
+                      staticClass: "px-2 text-white",
                       on: {
                         click: function($event) {
                           _vm.addListing = false

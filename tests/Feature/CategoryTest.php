@@ -15,7 +15,8 @@ class CategoryTest extends TestCase
        $this->signInAsAdmin();
 
        $request = [
-           'name' => 'Test Category'
+           'name' => 'Test Category',
+           'slug' => 'test-category'
        ];
 
        $this->post('/categories', $request)

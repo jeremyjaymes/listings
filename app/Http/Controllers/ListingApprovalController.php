@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Listing;
-use Illuminate\Http\Request;
+use App\Mail\ListingApproved;
+use Illuminate\Support\Facades\Mail;
 
 class ListingApprovalController extends Controller
 {
@@ -31,6 +32,7 @@ class ListingApprovalController extends Controller
         $this->authorize('update', Listing::class);
 
         $listing->update(['is_approved' => true]);
+        Mail::to($listing->contact_email)->send(new ListingApproved);
 
         return response()->json([
             'message' => 'Listing has been published.'

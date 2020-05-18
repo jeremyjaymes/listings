@@ -2,10 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Mail\ListingRequiresApproval;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class ListingTest extends TestCase
@@ -31,7 +33,9 @@ class ListingTest extends TestCase
 
     public function test_listings_can_be_created()
     {
+        Mail::fake();
         $tag = factory(\App\Tag::class)->create();
+        $category = factory(\App\Category::class)->create();
         $request = [
             'name' => $this->faker->company,
             'description' => $this->faker->text,
@@ -42,6 +46,7 @@ class ListingTest extends TestCase
             'state_id' => 52,
             'phone' => $this->faker->phoneNumber,
             'website' => $this->faker->safeEmailDomain,
+            'category_id' => $category->id,
             'tagsArray' => [
                 [
                     'key' => $this->faker->word,
@@ -54,6 +59,7 @@ class ListingTest extends TestCase
         $response->assertJson([
             'message' => 'Your listing has been submitted, you will be notified when it is approved.'
         ]);
+        Mail::assertSent(ListingRequiresApproval::class);
     }
 
     public function test_a_listing_can_be_edited_by_admin()
