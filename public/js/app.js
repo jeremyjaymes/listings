@@ -24511,9 +24511,11 @@ var render = function() {
       { staticClass: "mt-4 text-gray-600" },
       _vm._l(_vm.categories, function(category) {
         return _c("li", [
-          _c("a", { attrs: { href: "?category=" + category.slug } }, [
-            _vm._v(_vm._s(category.name))
-          ])
+          category.listings_count >= 1
+            ? _c("a", { attrs: { href: "?category=" + category.slug } }, [
+                _vm._v(_vm._s(category.name))
+              ])
+            : _vm._e()
         ])
       }),
       0
@@ -38456,8 +38458,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/jeremyjaymes/Operations/Code/apps/sourceamerican.test/site/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/jeremyjaymes/Operations/Code/apps/sourceamerican.test/site/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/jeremyjaymes/Operations/Code/apps/listings.test/site/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/jeremyjaymes/Operations/Code/apps/listings.test/site/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

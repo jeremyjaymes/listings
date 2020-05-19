@@ -31,7 +31,7 @@ class ListingController extends Controller
         }
 
         $states = \App\State::all();
-        $categories = Category::all();
+        $categories = Category::withCount('listings')->orderBy('name')->get();
         $tags = Tag::all()->pluck('name');
 
         $term = null;
