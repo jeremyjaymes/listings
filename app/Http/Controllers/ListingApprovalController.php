@@ -31,7 +31,8 @@ class ListingApprovalController extends Controller
     {
         $this->authorize('update', Listing::class);
 
-        $listing->update(['is_approved' => true]);
+        $listing->is_approved = true;
+        $listing->save();
         Mail::to($listing->contact_email)->send(new ListingApproved);
 
         return response()->json([
