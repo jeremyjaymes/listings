@@ -23,7 +23,9 @@
     <div id="app">
         <header class="py-12 bg-blue-500 border-b mb-10">
             <div class="container mx-auto">
-                <h1 class="text-5xl text-center text-white font-black">{{ config('app.name', 'Listings') }}</h1>
+                <h1 class="text-5xl text-center text-white font-black">
+                    <a href="{{ url('/') }}">{{ config('app.name', 'Listings') }}</a>
+                </h1>
                 <p class="text-4xl text-center text-white font-bold mb-8">{{ config('app.tagline', 'A Directory Application') }}</p>
                 <div class="pt-2 pb-2 text-center">
                     @yield('button')
