@@ -108,7 +108,7 @@
                 <div class="px-4 py-4">
                     <button class="bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4
                 border-blue-900 hover:border-blue-500 rounded" @click.prevent="update">Submit Listing</button>
-                    <button class="px-2 text-white" @click="addListing = false">Cancel</button>
+                    <button class="px-2 text-red-600 text-right" @click.prevent="remove">Remove Listing</button>
                 </div>
             </form>
         </transition>
@@ -230,6 +230,18 @@
                         duration: 5000
                     });
                     location.reload()
+                }).catch( err => (
+                    this.$toasted.show(err, {
+                        theme: "",
+                        position: "top-center",
+                        className: "bg-red text-white rounded-full",
+                        duration: 5000
+                    })
+                ));
+            },
+            remove: function() {
+                axios.delete('/listings/' + this.listing.id).then(resp => {
+                    window.location = resp.data.url
                 }).catch( err => (
                     this.$toasted.show(err, {
                         theme: "",

@@ -2764,6 +2764,20 @@ __webpack_require__.r(__webpack_exports__);
           duration: 5000
         });
       });
+    },
+    remove: function remove() {
+      var _this3 = this;
+
+      axios["delete"]('/listings/' + this.listing.id).then(function (resp) {
+        window.location = resp.data.url;
+      })["catch"](function (err) {
+        return _this3.$toasted.show(err, {
+          theme: "",
+          position: "top-center",
+          className: "bg-red text-white rounded-full",
+          duration: 5000
+        });
+      });
     }
   }
 });
@@ -25374,7 +25388,7 @@ var render = function() {
             "button",
             {
               staticClass:
-                "bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4\n            border-blue-900\n    hover:border-blue-500 rounded",
+                "bg-blue-600 hover:bg-blue-400 text-white font-semibold py-2 px-4 border-b-4\n            border-blue-900\n    hover:border-blue-500 rounded",
               on: {
                 click: function($event) {
                   $event.preventDefault()
@@ -26485,14 +26499,15 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "px-2 text-white",
+                  staticClass: "px-2 text-red-600 text-right",
                   on: {
                     click: function($event) {
-                      _vm.addListing = false
+                      $event.preventDefault()
+                      return _vm.remove($event)
                     }
                   }
                 },
-                [_vm._v("Cancel")]
+                [_vm._v("Remove Listing")]
               )
             ])
           ],

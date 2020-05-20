@@ -14,7 +14,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;900&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -26,7 +26,7 @@
                 <h1 class="lg:text-5xl text-3xl text-center text-white font-black">
                     <a href="{{ url('/') }}">{{ config('app.name', 'Listings') }}</a>
                 </h1>
-                <p class="lg:text-4xl text-2xl text-center text-white font-bold mb-8">{{ config('app.tagline', 'A Directory Application') }}</p>
+                <p class="lg:text-4xl text-2xl text-center text-white font-semibold mb-8">{{ config('app.tagline', 'A Directory Application') }}</p>
                 <div class="pt-2 pb-2 text-center">
                     @yield('button')
                 </div>

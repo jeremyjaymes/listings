@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button v-if="!addListing" class="bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4
+        <button v-if="!addListing" class="bg-blue-600 hover:bg-blue-400 text-white font-semibold py-2 px-4 border-b-4
                 border-blue-900
         hover:border-blue-500 rounded" @click.prevent="add">
             Add A Listing

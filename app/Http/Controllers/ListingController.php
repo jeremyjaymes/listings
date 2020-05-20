@@ -141,7 +141,8 @@ class ListingController extends Controller
 
         Listing::destroy($id);
         return response()->json([
-            'message' => 'Listing Deleted'
+            'message' => 'Listing Deleted',
+            'url' => route('home')
         ], 201);
     }
 }

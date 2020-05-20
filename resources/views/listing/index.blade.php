@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="flex flex-no-wrap w-full flex-col md:flex-row">
-        <h3 class="text-xl font-bold mb-8">Listings</h3>
+        <h3 class="text-xl font-semibold mb-8">Listings</h3>
     </div>
     <listings :listings='@json($listings)'></listings>
 @endsection
