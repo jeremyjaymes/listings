@@ -2052,6 +2052,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['listings'],
   methods: {
@@ -2066,7 +2067,30 @@ __webpack_require__.r(__webpack_exports__);
           type: "success",
           duration: 5000
         });
-      })["catch"](function (error) {});
+
+        location.reload();
+      })["catch"](function (error) {
+        _this.$toasted.show(err, {
+          theme: "",
+          position: "top-center",
+          className: "bg-red text-white rounded-full",
+          duration: 5000
+        });
+      });
+    },
+    remove: function remove(id) {
+      var _this2 = this;
+
+      axios["delete"]('/listings/' + id).then(function (resp) {
+        location.reload();
+      })["catch"](function (err) {
+        return _this2.$toasted.show(err, {
+          theme: "",
+          position: "top-center",
+          className: "bg-red text-white rounded-full",
+          duration: 5000
+        });
+      });
     }
   }
 });
@@ -24919,26 +24943,35 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "md:w-1/4 text-right" }, [
-                _c(
-                  "label",
-                  { staticClass: "md:w-2/3 block text-gray-500 font-bold" },
-                  [
-                    _c("input", {
-                      staticClass: "mr-2 leading-tight",
-                      attrs: { type: "checkbox" },
-                      on: {
-                        change: function($event) {
-                          return _vm.approve(listing.id)
-                        }
+                _c("label", { staticClass: "md:w-2/3 block text-gray-500" }, [
+                  _c("input", {
+                    staticClass: "mr-2 leading-tight",
+                    attrs: { type: "checkbox" },
+                    on: {
+                      change: function($event) {
+                        return _vm.approve(listing.id)
                       }
-                    }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "text-sm" }, [
-                      _vm._v(
-                        "\n                        Approve\n                    "
-                      )
-                    ])
-                  ]
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "text-sm" }, [
+                    _vm._v(
+                      "\n                        Approve\n                    "
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "text-red-600",
+                    on: {
+                      click: function($event) {
+                        return _vm.remove(listing.id)
+                      }
+                    }
+                  },
+                  [_vm._v("Deny")]
                 )
               ])
             ]

@@ -18,12 +18,13 @@
                     Capabilities
                 </div>
                 <div class="md:w-1/4 text-right">
-                    <label class="md:w-2/3 block text-gray-500 font-bold">
+                    <label class="md:w-2/3 block text-gray-500">
                         <input class="mr-2 leading-tight" type="checkbox" @change="approve(listing.id)">
                         <span class="text-sm">
                             Approve
                         </span>
                     </label>
+                    <button class="text-red-600" @click="remove(listing.id)">Deny</button>
                 </div>
             </div>
         </div>
@@ -44,10 +45,27 @@
                         type: "success",
                         duration: 5000
                     });
-
+                    location.reload();
                 }).catch(error => {
-
+                    this.$toasted.show(err, {
+                        theme: "",
+                        position: "top-center",
+                        className: "bg-red text-white rounded-full",
+                        duration: 5000
+                    })
                 })
+            },
+            remove: function(id) {
+                axios.delete('/listings/' + id).then(resp => {
+                    location.reload()
+                }).catch( err => (
+                    this.$toasted.show(err, {
+                        theme: "",
+                        position: "top-center",
+                        className: "bg-red text-white rounded-full",
+                        duration: 5000
+                    })
+                ));
             }
         }
     }
