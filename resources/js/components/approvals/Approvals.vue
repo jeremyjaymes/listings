@@ -37,7 +37,7 @@
 
         methods: {
             approve: function(id) {
-                axios.post('/approvals/' + id).then(response => {
+                axios.post('/approvals/' + id).then(resp => {
                     this.$toasted.show(resp.data.message, {
                         theme: "",
                         position: "top-center",
