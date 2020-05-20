@@ -2069,7 +2069,7 @@ __webpack_require__.r(__webpack_exports__);
         });
 
         location.reload();
-      })["catch"](function (error) {
+      })["catch"](function (err) {
         _this.$toasted.show(err, {
           theme: "",
           position: "top-center",
@@ -24871,7 +24871,7 @@ var render = function() {
       { staticClass: "mt-4 text-gray-600" },
       _vm._l(_vm.categories, function(category) {
         return _c("li", [
-          category.listings_count >= 1
+          category.approved_listings >= 1
             ? _c("a", { attrs: { href: "?category=" + category.slug } }, [
                 _vm._v(_vm._s(category.name))
               ])

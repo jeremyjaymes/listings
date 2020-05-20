@@ -46,7 +46,7 @@
                         duration: 5000
                     });
                     location.reload();
-                }).catch(error => {
+                }).catch(err => {
                     this.$toasted.show(err, {
                         theme: "",
                         position: "top-center",

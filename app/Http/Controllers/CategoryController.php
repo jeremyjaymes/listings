@@ -7,11 +7,18 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    /***
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         return response()->view('categories.create', ['categories' => Category::all()]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         Category::create($request->input());

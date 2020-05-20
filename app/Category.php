@@ -11,6 +11,13 @@ class Category extends Model
         'slug'
     ];
 
+    protected $appends = ['approved_listings'];
+
+    public function getApprovedListingsAttribute()
+    {
+        return $this->listings->where('is_approved', true)->count();
+    }
+
     public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = strtolower(str_replace(' ', '-', $value));
