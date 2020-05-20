@@ -14,31 +14,31 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
     <div id="app">
-        <header class="py-12 bg-blue-500 border-b mb-10">
-            <div class="container mx-auto">
-                <h1 class="text-5xl text-center text-white font-black">
+        <header class="lg:py-12 py-6 bg-blue-500 border-b mb-10">
+            <div class="container mx-auto lg:px-2 px-2">
+                <h1 class="lg:text-5xl text-3xl text-center text-white font-black">
                     <a href="{{ url('/') }}">{{ config('app.name', 'Listings') }}</a>
                 </h1>
-                <p class="text-4xl text-center text-white font-bold mb-8">{{ config('app.tagline', 'A Directory Application') }}</p>
+                <p class="lg:text-4xl text-2xl text-center text-white font-bold mb-8">{{ config('app.tagline', 'A Directory Application') }}</p>
                 <div class="pt-2 pb-2 text-center">
                     @yield('button')
                 </div>
             </div>
         </header>
-        <main class="container mx-auto pb-20 px-20">
+        <main class="container mx-auto pb-20 lg:px-20 px-5">
             @yield('search')
-            <div class="flex">
-                <div class="lg:w-4/5 bg-grey-lightest text-grey-light mt-10 pr-10">
+            <div class="lg:flex">
+                <div class="lg:w-4/5 md:w-full bg-grey-lightest text-grey-light mt-10 lg:pr-10">
                     @yield('content')
                 </div>
-                <div class="lg:w-1/5 mt-10">
+                <div class="lg:w-1/5 md:w-full mt-10">
                     @yield('sidebar')
                 </div>
             </div>

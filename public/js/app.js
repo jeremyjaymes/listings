@@ -24967,25 +24967,29 @@ var render = function() {
       2
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "description sm:w-2/3 sm:border-l pl-8 py-6" }, [
-      _c("p", { staticClass: "text-lg" }, [
-        _vm._v(_vm._s(_vm.listing.description))
-      ]),
-      _vm._v(" "),
-      _vm.listing.company_email && _vm.listing.display_contact
-        ? _c("div", { staticClass: "mt-8" }, [
-            _c(
-              "a",
-              {
-                staticClass:
-                  "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-3\n             border border-gray-400 rounded shadow my-4",
-                attrs: { href: "mailto:" + _vm.listing.company_email }
-              },
-              [_vm._v("Send Email")]
-            )
-          ])
-        : _vm._e()
-    ])
+    _c(
+      "div",
+      { staticClass: "description md:w-2/3 w-full sm:border-l md:pl-8 py-6" },
+      [
+        _c("p", { staticClass: "text-lg" }, [
+          _vm._v(_vm._s(_vm.listing.description))
+        ]),
+        _vm._v(" "),
+        _vm.listing.company_email && _vm.listing.display_contact
+          ? _c("div", { staticClass: "mt-8" }, [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-3\n             border border-gray-400 rounded shadow my-4",
+                  attrs: { href: "mailto:" + _vm.listing.company_email }
+                },
+                [_vm._v("Send Email")]
+              )
+            ])
+          : _vm._e()
+      ]
+    )
   ])
 }
 var staticRenderFns = []
@@ -25142,7 +25146,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "flex items-center" }, [
+                _c("div", { staticClass: "md:flex items-center" }, [
                   _c(
                     "div",
                     { staticClass: "flex-1 px-4 py-2" },
@@ -25313,7 +25317,7 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "flex items-center" }, [
+                _c("div", { staticClass: "md:flex items-center" }, [
                   _c("div", { staticClass: "flex-1 px-4 py-2" }, [
                     _c(
                       "label",

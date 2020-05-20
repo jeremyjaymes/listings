@@ -16,7 +16,7 @@
             <h3 class="text-gray-500 uppercase tracking-wide font-bold text-sm lg:text-sm mt-10">{{ tagTitle }}</h3>
             <span v-for="tag in listing.tags">{{ tag.name }}</span>
         </div>
-        <div class="description sm:w-2/3 sm:border-l pl-8 py-6">
+        <div class="description md:w-2/3 w-full sm:border-l md:pl-8 py-6">
             <p class="text-lg">{{ listing.description }}</p>
             <div class="mt-8" v-if="listing.company_email && listing.display_contact">
                 <a :href="'mailto:' + listing.company_email"

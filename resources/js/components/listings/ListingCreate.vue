@@ -26,7 +26,7 @@
                               :maxlength="300"></textarea>
                     <p class="text-sm text-gray-400 my-0">Characters: {{ characters }}</p>
                 </div>
-                <div class="flex items-center">
+                <div class="md:flex items-center">
                     <div class="flex-1 px-4 py-2">
                         <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Select Category</label>
                         <select id="category"
@@ -62,7 +62,7 @@
                             }}</p>
                     </div>
                 </div>
-                <div class="flex items-center">
+                <div class="md:flex items-center">
                     <div class="flex-1 px-4 py-2">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="company-email">
                             Company Email
