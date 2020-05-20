@@ -2180,7 +2180,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['address', 'states'],
   data: function data() {
@@ -2508,6 +2507,269 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/listings/ListingEdit.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/listings/ListingEdit.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _forms_Address__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../forms/Address */ "./resources/js/components/forms/Address.vue");
+/* harmony import */ var _voerro_vue_tagsinput__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @voerro/vue-tagsinput */ "./node_modules/@voerro/vue-tagsinput/src/main.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['listing', 'states', 'categories', 'tags'],
+  components: {
+    StreetAddress: _forms_Address__WEBPACK_IMPORTED_MODULE_0__["default"],
+    TagsInput: _voerro_vue_tagsinput__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      name: this.listing.name,
+      description: this.listing.description,
+      address: {
+        street_address: this.listing.street_address,
+        city: this.listing.city,
+        state_id: this.listing.state_id,
+        zip: this.listing.zip
+      },
+      category_id: this.listing.category_id,
+      tagsArray: [],
+      existingTags: [],
+      contact_email: this.listing.contact_email,
+      company_email: this.listing.company_email,
+      phone: this.listing.phone,
+      website: this.listing.website,
+      display_contact: this.listing.display_contact,
+      characters: 300,
+      errors: []
+    };
+  },
+  mounted: function mounted() {
+    this.tags.forEach(this.formatTags);
+  },
+  watch: {
+    description: function description() {
+      var _this = this;
+
+      var textarea = document.getElementById("description");
+      textarea.addEventListener("input", function (event) {
+        var target = event.currentTarget;
+        var maxLength = target.getAttribute("maxlength");
+        _this.characters = maxLength - target.value.length;
+      });
+    }
+  },
+  methods: {
+    formatTags: function formatTags(item, index, arr) {
+      arr[index] = {
+        key: item,
+        value: item
+      };
+      this.existingTags = arr;
+    },
+    add: function add() {
+      this.addListing ? this.addListing = false : this.addListing = true;
+    },
+    removeError: function removeError(value) {
+      if (!this.errors) return;
+      console.log(value);
+      this.errors = this.errors.filter(function (e) {
+        console.log(Object.keys(e));
+        return Object.keys(e) != value;
+      });
+    },
+    validate: function validate() {
+      if (this.name && this.category_id) {
+        return true;
+      }
+
+      this.errors = [];
+
+      if (!this.name) {
+        this.errors.push({
+          'name': 'Name required.'
+        });
+      }
+
+      if (!this.category_id) {
+        this.errors.push({
+          'category': 'Category required.'
+        });
+      }
+
+      if (!this.contact_email) {
+        this.errors.push({
+          'email': 'Please enter a contact email.'
+        });
+      }
+    },
+    update: function update() {
+      var _this2 = this;
+
+      this.validate();
+      if (this.errors.length > 0) return;
+      var request = {
+        name: this.name,
+        description: this.description,
+        street_address: this.address.street_address,
+        city: this.address.city,
+        state_id: this.address.state_id,
+        zip: this.address.zip,
+        contact_email: this.contact_email,
+        company_email: this.company_email,
+        phone: this.phone,
+        website: this.website,
+        display_contact: this.display_contact,
+        tagsArray: this.tagsArray,
+        category_id: this.category_id
+      };
+      axios.put('/listings/' + this.listing.id, request).then(function (resp) {
+        console.log('submit');
+
+        _this2.$toasted.show(resp.data.message, {
+          theme: "",
+          position: "top-center",
+          className: "bg-green text-white rounded-full",
+          type: "success",
+          duration: 5000
+        });
+
+        location.reload();
+      })["catch"](function (err) {
+        return _this2.$toasted.show(err, {
+          theme: "",
+          position: "top-center",
+          className: "bg-red text-white rounded-full",
+          duration: 5000
+        });
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/listings/Listings.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/listings/Listings.vue?vue&type=script&lang=js& ***!
@@ -2565,6 +2827,25 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/listings/ListingCreate.vue?vue&type=style&index=0&lang=scss& ***!
   \********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".fade-enter-active, .fade-leave-active {\n  transition: opacity 0.5s;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\n.tags-input input {\n  padding-left: 0.75rem;\n  padding-right: 0.75rem;\n  padding-top: 0.5rem;\n  padding-bottom: 0.5rem;\n  width: 100%;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/listings/ListingEdit.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/listings/ListingEdit.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22836,6 +23117,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/listings/ListingEdit.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/listings/ListingEdit.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListingEdit.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/listings/ListingEdit.vue?vue&type=style&index=0&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -24824,7 +25135,7 @@ var render = function() {
                 }
               ],
               staticClass:
-                "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700\n            py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                "block appearance-none w-full bg-white border border-gray-200 text-gray-700\n            py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:shadow-outline",
               attrs: { id: "state" },
               on: {
                 change: function($event) {
@@ -25215,7 +25526,7 @@ var render = function() {
                               }
                             ],
                             staticClass:
-                              "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2\n                            px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                              "block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-2\n                            px-3 pr-8 rounded leading-tight focus:outline-none focus:shadow-outline",
                             attrs: { id: "category" },
                             on: {
                               change: [
@@ -25625,6 +25936,568 @@ var render = function() {
               1
             )
           : _vm._e()
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/listings/ListingEdit.vue?vue&type=template&id=015f668e&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/listings/ListingEdit.vue?vue&type=template&id=015f668e& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("transition", { attrs: { name: "fade" } }, [
+        _c(
+          "form",
+          { staticClass: "text-left mt-4 mb-8", attrs: { id: "editListing" } },
+          [
+            _c(
+              "div",
+              { staticClass: "px-4 py-2" },
+              [
+                _c(
+                  "label",
+                  {
+                    staticClass: "block text-gray-700 text-sm font-bold mb-2",
+                    attrs: { for: "name" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    Business Name\n                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.name,
+                      expression: "name"
+                    }
+                  ],
+                  staticClass:
+                    "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n        leading-tight focus:outline-none focus:shadow-outline",
+                  attrs: {
+                    id: "name",
+                    type: "text",
+                    placeholder: "USA Manufacturing"
+                  },
+                  domProps: { value: _vm.name },
+                  on: {
+                    change: function($event) {
+                      return _vm.removeError("name")
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.name = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm._l(_vm.errors, function(error) {
+                  return error.name
+                    ? _c("p", { staticClass: "text-red-500 text-xs italic" }, [
+                        _vm._v(_vm._s(error.name))
+                      ])
+                    : _vm._e()
+                })
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "px-4 py-2" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "block text-gray-700 text-sm font-bold mb-2",
+                  attrs: { for: "description" }
+                },
+                [
+                  _vm._v(
+                    "\n                    Describe Your Business\n                "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.description,
+                    expression: "description"
+                  }
+                ],
+                staticClass:
+                  "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n        leading-tight focus:outline-none focus:shadow-outline",
+                attrs: { id: "description", rows: "10", maxlength: 300 },
+                domProps: { value: _vm.description },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.description = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("p", { staticClass: "text-sm text-gray-400 my-0" }, [
+                _vm._v("Characters: " + _vm._s(_vm.characters))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "md:flex items-center" }, [
+              _c(
+                "div",
+                { staticClass: "flex-1 px-4 py-2" },
+                [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "block text-gray-700 text-sm font-bold mb-2",
+                      attrs: { for: "category" }
+                    },
+                    [_vm._v("Select Category")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "relative" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.category_id,
+                            expression: "category_id"
+                          }
+                        ],
+                        staticClass:
+                          "block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-2\n                            px-3 pr-8 rounded leading-tight focus:outline-none focus:shadow-outline",
+                        attrs: { id: "category" },
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.category_id = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                            function($event) {
+                              return _vm.removeError("category")
+                            }
+                          ]
+                        }
+                      },
+                      _vm._l(_vm.categories, function(category) {
+                        return _c(
+                          "option",
+                          { domProps: { value: category.id } },
+                          [_vm._v(_vm._s(category.name))]
+                        )
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "fill-current h-4 w-4",
+                            attrs: {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              viewBox: "0 0 20 20"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                d:
+                                  "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.errors, function(error) {
+                    return error.category
+                      ? _c(
+                          "p",
+                          { staticClass: "text-red-500 text-xs italic" },
+                          [_vm._v(_vm._s(error.category))]
+                        )
+                      : _vm._e()
+                  })
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "flex-1 px-4 py-2" },
+                [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "block text-gray-700 text-sm font-bold mb-2",
+                      attrs: { for: "tags" }
+                    },
+                    [_vm._v("Enter Tags")]
+                  ),
+                  _vm._v(" "),
+                  _c("tags-input", {
+                    attrs: {
+                      id: "tags",
+                      "element-id": "tags",
+                      "wrapper-class":
+                        "bg-white shadow appearance-none border rounded w-full text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline px-2",
+                      "existing-tags": _vm.tags,
+                      "add-tags-on-blur": true,
+                      typeahead: true
+                    },
+                    model: {
+                      value: _vm.tagsArray,
+                      callback: function($$v) {
+                        _vm.tagsArray = $$v
+                      },
+                      expression: "tagsArray"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "flex-1 px-4 py-2" },
+                [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "block text-gray-700 text-sm font-bold mb-2",
+                      attrs: { for: "contact-email" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Personal Contact Email\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.contact_email,
+                        expression: "contact_email"
+                      }
+                    ],
+                    staticClass:
+                      "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline",
+                    attrs: {
+                      id: "contact-email",
+                      type: "text",
+                      placeholder: "hello@example.org"
+                    },
+                    domProps: { value: _vm.contact_email },
+                    on: {
+                      change: function($event) {
+                        return _vm.removeError("email")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.contact_email = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.errors, function(error) {
+                    return error.email
+                      ? _c(
+                          "p",
+                          { staticClass: "text-red-500 text-xs italic" },
+                          [_vm._v(_vm._s(error.email))]
+                        )
+                      : _vm._e()
+                  })
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "md:flex flex-wrap" }, [
+              _c("div", { staticClass: "flex-1 px-4 py-2" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "block text-gray-700 text-sm font-bold mb-2",
+                    attrs: { for: "company-email" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Company Email\n                    "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.company_email,
+                      expression: "company_email"
+                    }
+                  ],
+                  staticClass:
+                    "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline mb-2",
+                  attrs: {
+                    id: "company-email",
+                    type: "text",
+                    placeholder: "hello@example.org"
+                  },
+                  domProps: { value: _vm.company_email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.company_email = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-gray-100 text-xs italic m-0" }, [
+                  _vm._v("Displayed with listing.")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex-1 px-4 py-2" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "block text-gray-700 text-sm font-bold mb-2",
+                    attrs: { for: "phone" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Phone\n                    "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.phone,
+                      expression: "phone"
+                    }
+                  ],
+                  staticClass:
+                    "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline",
+                  attrs: {
+                    id: "phone",
+                    type: "text",
+                    placeholder: "(222) 333-4444"
+                  },
+                  domProps: { value: _vm.phone },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.phone = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex-1 px-4 py-2" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "block text-gray-700 text-sm font-bold mb-2",
+                    attrs: { for: "website" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Website\n                    "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.website,
+                      expression: "website"
+                    }
+                  ],
+                  staticClass:
+                    "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline",
+                  attrs: {
+                    id: "website",
+                    type: "text",
+                    placeholder: "https://example.org"
+                  },
+                  domProps: { value: _vm.website },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.website = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("street-address", {
+              attrs: { address: _vm.address, states: _vm.states }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "px-4 py-2" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "block text-gray-700 text-sm font-bold mb-2",
+                  attrs: { for: "display" }
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.display_contact,
+                        expression: "display_contact"
+                      }
+                    ],
+                    staticClass: "mr-2 leading-tight",
+                    attrs: { id: "display", type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.display_contact)
+                        ? _vm._i(_vm.display_contact, null) > -1
+                        : _vm.display_contact
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$a = _vm.display_contact,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 && (_vm.display_contact = $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              (_vm.display_contact = $$a
+                                .slice(0, $$i)
+                                .concat($$a.slice($$i + 1)))
+                          }
+                        } else {
+                          _vm.display_contact = $$c
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "text-sm" }, [
+                    _vm._v(
+                      "\n                        Display contact info with my listing. (Company Email, Phone)\n                        "
+                    ),
+                    _c("span", { staticClass: "font-normal italic" }, [
+                      _vm._v(
+                        "\n                             We will not share your personal contact email.\n                        "
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "px-4 py-4" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4\n            border-blue-900 hover:border-blue-500 rounded",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.update($event)
+                    }
+                  }
+                },
+                [_vm._v("Submit Listing")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "px-2 text-white",
+                  on: {
+                    click: function($event) {
+                      _vm.addListing = false
+                    }
+                  }
+                },
+                [_vm._v("Cancel")]
+              )
+            ])
+          ],
+          1
+        )
       ])
     ],
     1
@@ -37961,6 +38834,7 @@ Vue.component('sidebar', __webpack_require__(/*! ./components/Sidebar.vue */ "./
 Vue.component('listing-create', __webpack_require__(/*! ./components/listings/ListingCreate.vue */ "./resources/js/components/listings/ListingCreate.vue")["default"]);
 Vue.component('listings', __webpack_require__(/*! ./components/listings/Listings.vue */ "./resources/js/components/listings/Listings.vue")["default"]);
 Vue.component('listing', __webpack_require__(/*! ./components/listings/Listing.vue */ "./resources/js/components/listings/Listing.vue")["default"]);
+Vue.component('listing-edit', __webpack_require__(/*! ./components/listings/ListingEdit.vue */ "./resources/js/components/listings/ListingEdit.vue")["default"]);
 Vue.component('approvals', __webpack_require__(/*! ./components/approvals/Approvals.vue */ "./resources/js/components/approvals/Approvals.vue")["default"]);
 Vue.component('category-create', __webpack_require__(/*! ./components/categories/CategoryCreate.vue */ "./resources/js/components/categories/CategoryCreate.vue")["default"]);
 /**
@@ -38444,6 +39318,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListingCreate_vue_vue_type_template_id_ed38662a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListingCreate_vue_vue_type_template_id_ed38662a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/listings/ListingEdit.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/listings/ListingEdit.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ListingEdit_vue_vue_type_template_id_015f668e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListingEdit.vue?vue&type=template&id=015f668e& */ "./resources/js/components/listings/ListingEdit.vue?vue&type=template&id=015f668e&");
+/* harmony import */ var _ListingEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListingEdit.vue?vue&type=script&lang=js& */ "./resources/js/components/listings/ListingEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _ListingEdit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ListingEdit.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/components/listings/ListingEdit.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ListingEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ListingEdit_vue_vue_type_template_id_015f668e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ListingEdit_vue_vue_type_template_id_015f668e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/listings/ListingEdit.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/listings/ListingEdit.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/listings/ListingEdit.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListingEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListingEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/listings/ListingEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListingEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/listings/ListingEdit.vue?vue&type=style&index=0&lang=scss&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/listings/ListingEdit.vue?vue&type=style&index=0&lang=scss& ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ListingEdit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListingEdit.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/listings/ListingEdit.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ListingEdit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ListingEdit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ListingEdit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ListingEdit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ListingEdit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/listings/ListingEdit.vue?vue&type=template&id=015f668e&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/listings/ListingEdit.vue?vue&type=template&id=015f668e& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListingEdit_vue_vue_type_template_id_015f668e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListingEdit.vue?vue&type=template&id=015f668e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/listings/ListingEdit.vue?vue&type=template&id=015f668e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListingEdit_vue_vue_type_template_id_015f668e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListingEdit_vue_vue_type_template_id_015f668e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

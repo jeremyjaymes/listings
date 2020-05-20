@@ -71,6 +71,31 @@ class ListingTest extends TestCase
             ->assertStatus(200);
     }
 
+    public function test_a_listing_can_be_updated_by_admin()
+    {
+        $this->signInAsAdmin();
+        $listing = factory(\App\Listing::class)->create();
+
+        $request = [
+            'name' => $listing->name,
+            'description' => $listing->description,
+            'company_email' => $listing->company_email,
+            'contact_email' => 'update@example.org',
+            'street_address' => $listing->street_address,
+            'city' => $listing->city,
+            'zip' => $listing->zip,
+            'state_id' => 52,
+            'phone' => $listing->phone,
+            'website' => $listing->website,
+            'is_approved' => 1
+        ];
+
+        $this->put('/listings/' . $listing->id, $request)
+            ->assertStatus(200);
+
+        $this->assertTrue(\App\Listing::find($listing->id)->contact_email === 'update@example.org');
+    }
+
     public function test_a_listing_can_not_be_edited_by_user()
     {
         $this->signIn();

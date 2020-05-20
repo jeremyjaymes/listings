@@ -95,13 +95,21 @@ class ListingController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Listing $listing)
     {
         $this->authorize('update', Listing::class);
+        $states = \App\State::all();
+        $categories = Category::withCount('listings')->orderBy('name')->get();
+        $tags = Tag::all()->pluck('name');
 
-        return response()->json([], 200);
+        return response()->view('listing.edit', [
+            'listing' => $listing,
+            'categories' => $categories,
+            'states' => $states,
+            'tags' => $tags
+        ]);
     }
 
     /**
@@ -111,11 +119,14 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Listing $listing)
     {
         $this->authorize('update', Listing::class);
+        $listing->update($request->input());
 
-        return response()->json([], 200);
+        \Log::info($request->input());
+
+        return response()->json(['message' => "Listing Updated"], 200);
     }
 
     /**

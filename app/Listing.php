@@ -13,6 +13,7 @@ class Listing extends Model
 
     protected $fillable = [
         'name',
+        'description',
         'street_address',
         'city',
         'state_id',
@@ -30,7 +31,8 @@ class Listing extends Model
     ];
 
     protected $appends = [
-        'state_name'
+        'state_name',
+        'category_id'
     ];
 
     /**
@@ -39,6 +41,11 @@ class Listing extends Model
     public function getStateNameAttribute()
     {
         return State::where('id', $this->state_id)->first()->name;
+    }
+
+    public function getCategoryIdAttribute()
+    {
+        return $this->categories()->first()->id ?? null;
     }
 
     public function setPhoneAttribute($value)

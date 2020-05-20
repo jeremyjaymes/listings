@@ -10,4 +10,8 @@
         </li>
     </ul>
     <listing :listing="{{ $listing->toJson() }}" tag-title="{{ config('listings.tag_title') }}"></listing>
+
+    @if (auth()->user() && auth()->user()->is_admin)
+       <a href="{{ route('listings.edit', ['listing' => $listing]) }}" class="text-blue-300">Edit</a>
+    @endif
 @endsection

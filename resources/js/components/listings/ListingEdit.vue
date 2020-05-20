@@ -1,12 +1,7 @@
 <template>
     <div>
-        <button v-if="!addListing" class="bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4
-                border-blue-900
-        hover:border-blue-500 rounded" @click.prevent="add">
-            Add A Listing
-        </button>
         <transition name="fade">
-            <form v-if="addListing" id="createListing" class="text-left mt-4 mb-8">
+            <form id="editListing" class="text-left mt-4 mb-8">
                 <div class="px-4 py-2">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
                         Business Name
@@ -15,7 +10,7 @@
             leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" v-model="name"
                            placeholder="USA Manufacturing" @change="removeError('name')">
                     <p v-for="error in errors" v-if="error.name" class="text-red-500 text-xs italic">{{ error.name
-                    }}</p>
+                        }}</p>
                 </div>
                 <div class="px-4 py-2">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
@@ -23,7 +18,7 @@
                     </label>
                     <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
             leading-tight focus:outline-none focus:shadow-outline" id="description" v-model="description"
-                              :maxlength="300"></textarea>
+                              rows="10" :maxlength="300"></textarea>
                     <p class="text-sm text-gray-400 my-0">Characters: {{ characters }}</p>
                 </div>
                 <div class="md:flex items-center">
@@ -34,7 +29,8 @@
                                     class="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-2
                                 px-3 pr-8 rounded leading-tight focus:outline-none focus:shadow-outline"
                                     @change="removeError('category')" v-model="category_id">
-                                <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
+                                <option v-for="category in categories" :value="category.id">{{
+                                    category.name }}</option>
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -56,7 +52,7 @@
                     </div>
                     <div class="flex-1 px-4 py-2">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="contact-email">
-                           Personal Contact Email
+                            Personal Contact Email
                         </label>
                         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                 leading-tight focus:outline-none focus:shadow-outline" id="contact-email" type="text"
@@ -111,7 +107,7 @@
                 </div>
                 <div class="px-4 py-4">
                     <button class="bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4
-                border-blue-900 hover:border-blue-500 rounded" @click.prevent="create">Submit Listing</button>
+                border-blue-900 hover:border-blue-500 rounded" @click.prevent="update">Submit Listing</button>
                     <button class="px-2 text-white" @click="addListing = false">Cancel</button>
                 </div>
             </form>
@@ -124,7 +120,7 @@
     import TagsInput from '@voerro/vue-tagsinput';
 
     export default {
-        props: ['states', 'categories', 'tags'],
+        props: ['listing', 'states', 'categories', 'tags'],
 
         components: {
             StreetAddress,
@@ -133,23 +129,22 @@
 
         data: function() {
             return {
-                name: '',
-                description: '',
+                name: this.listing.name,
+                description: this.listing.description,
                 address: {
-                    street_address: '',
-                    city: '',
-                    state_id: null,
-                    zip: null
+                    street_address: this.listing.street_address,
+                    city: this.listing.city,
+                    state_id: this.listing.state_id,
+                    zip: this.listing.zip
                 },
-                category_id: null,
+                category_id: this.listing.category_id,
                 tagsArray: [],
                 existingTags: [],
-                contact_email: null,
-                company_email: null,
-                phone: null,
-                website: null,
-                display_contact: false,
-                addListing: false,
+                contact_email: this.listing.contact_email,
+                company_email: this.listing.company_email,
+                phone: this.listing.phone,
+                website: this.listing.website,
+                display_contact: this.listing.display_contact,
                 characters: 300,
                 errors: []
             }
@@ -206,7 +201,7 @@
                     this.errors.push({'email': 'Please enter a contact email.'})
                 }
             },
-            create: function() {
+            update: function() {
                 this.validate();
                 if (this.errors.length > 0) return;
 
@@ -225,7 +220,7 @@
                     tagsArray: this.tagsArray,
                     category_id: this.category_id,
                 }
-                axios.post('/listings', request).then( resp => {
+                axios.put('/listings/' + this.listing.id, request).then( resp => {
                     console.log('submit')
                     this.$toasted.show(resp.data.message, {
                         theme: "",
@@ -234,7 +229,7 @@
                         type: "success",
                         duration: 5000
                     });
-                    this.addListing = false;
+                    location.reload()
                 }).catch( err => (
                     this.$toasted.show(err, {
                         theme: "",
