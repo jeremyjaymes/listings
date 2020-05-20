@@ -43,7 +43,7 @@
                 </div>
             </div>
         </main>
-        <footer class="container mx-auto py-6 px-20">
+        <footer class="container mx-auto py-6 lg:px-20 px-4">
             <div class="flex">
                 <div class="lg:w-1/2">Copyright {{ date('Y') }} {{ config('app.name', 'Listings') }}</div>
             </div>

@@ -2175,6 +2175,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['address', 'states'],
   data: function data() {
@@ -2245,6 +2251,11 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _forms_Address__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../forms/Address */ "./resources/js/components/forms/Address.vue");
 /* harmony import */ var _voerro_vue_tagsinput__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @voerro/vue-tagsinput */ "./node_modules/@voerro/vue-tagsinput/src/main.js");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -24800,45 +24811,75 @@ var render = function() {
           [_vm._v("State")]
         ),
         _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.input.state_id,
-                expression: "input.state_id"
+        _c("div", { staticClass: "relative" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.input.state_id,
+                  expression: "input.state_id"
+                }
+              ],
+              staticClass:
+                "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700\n            py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+              attrs: { id: "state" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.input,
+                    "state_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
               }
-            ],
-            staticClass:
-              "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n        leading-tight focus:outline-none focus:shadow-outline",
-            attrs: { id: "state" },
-            on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
+            },
+            _vm._l(_vm.states, function(state) {
+              return _c("option", { domProps: { value: state.id } }, [
+                _vm._v(_vm._s(state.name))
+              ])
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+            },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "fill-current h-4 w-4",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 20 20"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                    }
                   })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.$set(
-                  _vm.input,
-                  "state_id",
-                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                )
-              }
-            }
-          },
-          _vm._l(_vm.states, function(state) {
-            return _c("option", { domProps: { value: state.id } }, [
-              _vm._v(_vm._s(state.name))
-            ])
-          }),
-          0
-        )
+                ]
+              )
+            ]
+          )
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "flex-1 px-4 py-2" }, [
@@ -25161,50 +25202,81 @@ var render = function() {
                         [_vm._v("Select Category")]
                       ),
                       _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.category_id,
-                              expression: "category_id"
-                            }
-                          ],
-                          staticClass:
-                            "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline",
-                          attrs: { id: "category" },
-                          on: {
-                            change: [
-                              function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.category_id = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              },
-                              function($event) {
-                                return _vm.removeError("category")
+                      _c("div", { staticClass: "relative" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.category_id,
+                                expression: "category_id"
                               }
-                            ]
-                          }
-                        },
-                        _vm._l(_vm.categories, function(category) {
-                          return _c(
-                            "option",
-                            { domProps: { value: category.id } },
-                            [_vm._v(_vm._s(category.name))]
-                          )
-                        }),
-                        0
-                      ),
+                            ],
+                            staticClass:
+                              "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2\n                            px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                            attrs: { id: "category" },
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.category_id = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                },
+                                function($event) {
+                                  return _vm.removeError("category")
+                                }
+                              ]
+                            }
+                          },
+                          _vm._l(_vm.categories, function(category) {
+                            return _c(
+                              "option",
+                              { domProps: { value: category.id } },
+                              [_vm._v(_vm._s(category.name))]
+                            )
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                          },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "fill-current h-4 w-4",
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  viewBox: "0 0 20 20"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    d:
+                                      "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
+                      ]),
                       _vm._v(" "),
                       _vm._l(_vm.errors, function(error) {
                         return error.category
@@ -25317,7 +25389,7 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "md:flex items-center" }, [
+                _c("div", { staticClass: "md:flex flex-wrap" }, [
                   _c("div", { staticClass: "flex-1 px-4 py-2" }, [
                     _c(
                       "label",
@@ -25343,7 +25415,7 @@ var render = function() {
                         }
                       ],
                       staticClass:
-                        "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline",
+                        "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n            leading-tight focus:outline-none focus:shadow-outline mb-2",
                       attrs: {
                         id: "company-email",
                         type: "text",
@@ -25360,9 +25432,11 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("p", { staticClass: "text-gray-600 text-xs italic" }, [
-                      _vm._v("Displayed with listing.")
-                    ])
+                    _c(
+                      "p",
+                      { staticClass: "text-gray-100 text-xs italic m-0" },
+                      [_vm._v("Displayed with listing.")]
+                    )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "flex-1 px-4 py-2" }, [

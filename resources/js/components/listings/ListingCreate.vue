@@ -29,12 +29,17 @@
                 <div class="md:flex items-center">
                     <div class="flex-1 px-4 py-2">
                         <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Select Category</label>
-                        <select id="category"
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                leading-tight focus:outline-none focus:shadow-outline" @change="removeError('category')"
-                                v-model="category_id">
-                            <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
-                        </select>
+                        <div class="relative">
+                            <select id="category"
+                                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2
+                                px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    @change="removeError('category')" v-model="category_id">
+                                <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                        </div>
                         <p v-for="error in errors" v-if="error.category" class="text-red-500 text-xs italic">{{
                             error.category
                             }}</p>
@@ -62,16 +67,16 @@
                             }}</p>
                     </div>
                 </div>
-                <div class="md:flex items-center">
+                <div class="md:flex flex-wrap">
                     <div class="flex-1 px-4 py-2">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="company-email">
                             Company Email
                         </label>
                         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                leading-tight focus:outline-none focus:shadow-outline" id="company-email" type="text"
+                leading-tight focus:outline-none focus:shadow-outline mb-2" id="company-email" type="text"
                                v-model="company_email"
                                placeholder="hello@example.org">
-                        <p class="text-gray-600 text-xs italic">Displayed with listing.</p>
+                        <p class="text-gray-100 text-xs italic m-0">Displayed with listing.</p>
                     </div>
                     <div class="flex-1 px-4 py-2">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
