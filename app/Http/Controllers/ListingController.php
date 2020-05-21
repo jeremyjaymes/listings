@@ -30,10 +30,6 @@ class ListingController extends Controller
             $listings->whereCategory($request->category);
         }
 
-        $states = \App\State::all();
-        $categories = Category::orderBy('name')->get();
-        $tags = Tag::all()->pluck('name');
-
         $term = null;
         if ($request->term) {
             $term = $request->term;
@@ -41,7 +37,7 @@ class ListingController extends Controller
         }
 
         return response()->view('listing.index',
-            compact('listings', 'states', 'term', 'categories', 'tags'));
+            compact('listings','term'));
     }
 
     /**
@@ -100,15 +96,9 @@ class ListingController extends Controller
     public function edit(Listing $listing)
     {
         $this->authorize('update', Listing::class);
-        $states = \App\State::all();
-        $categories = Category::withCount('listings')->orderBy('name')->get();
-        $tags = Tag::all()->pluck('name');
 
         return response()->view('listing.edit', [
             'listing' => $listing,
-            'categories' => $categories,
-            'states' => $states,
-            'tags' => $tags
         ]);
     }
 
@@ -124,8 +114,6 @@ class ListingController extends Controller
         $this->authorize('update', Listing::class);
         $listing->update($request->input());
 
-        \Log::info($request->input());
-
         return response()->json(['message' => "Listing Updated"], 200);
     }
 
@@ -138,8 +126,8 @@ class ListingController extends Controller
     public function destroy($id)
     {
         $this->authorize('delete', Listing::class);
-
         Listing::destroy($id);
+
         return response()->json([
             'message' => 'Listing Deleted',
             'url' => route('home')
