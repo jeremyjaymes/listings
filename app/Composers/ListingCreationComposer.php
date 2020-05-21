@@ -12,15 +12,15 @@ class ListingCreationComposer
 {
     public function __construct()
     {
-        $this->states = Cache::rememberForever('states.cache', function () {
+        $this->states = Cache::rememberForever('states', function () {
             return State::all();
         });
 
-        $this->categories = Cache::remember('categories.cache', 24*60, function () {
+        $this->categories = Cache::remember('categories', 24*60, function () {
             return Category::orderBy('name')->get();
         });
 
-        $this->tags = Cache::remember('tags.cache', 24*60, function () {
+        $this->tags = Cache::remember('tags', 24*60, function () {
             return Tag::all()->pluck('name');
         });
     }

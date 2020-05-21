@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Scout\Searchable;
 
 class Listing extends Model
@@ -40,7 +41,9 @@ class Listing extends Model
      */
     public function getStateNameAttribute()
     {
-        return State::where('id', $this->state_id)->first()->name;
+        return Cache::rememberForever("listing-{$this->id}-state", function () {
+            return State::where('id', $this->state_id)->first()->name;
+        });
     }
 
     public function getCategoryIdAttribute()

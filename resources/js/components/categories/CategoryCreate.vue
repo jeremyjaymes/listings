@@ -32,6 +32,7 @@
             create: function() {
                 let request ={
                     name: this.name,
+                    slug: this.name
                 }
                 axios.post('/categories', request).then( resp => {
                     this.$toasted.show(resp.data.message, {

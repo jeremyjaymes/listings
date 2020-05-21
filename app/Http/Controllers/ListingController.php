@@ -10,6 +10,7 @@ use App\Tag;
 use Illuminate\Http\Request;
 use App\Listing;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 
 class ListingController extends Controller
@@ -21,10 +22,11 @@ class ListingController extends Controller
      */
     public function index(SearchRequest $request)
     {
-
-        $listings = Listing::where('is_approved', true)
-            ->with('tags', 'categories')
-            ->get();
+        $listings = Cache::remember('listings', 18*60, function () {
+            return Listing::where('is_approved', true)
+                ->with('tags', 'categories')
+                ->get();
+        });
 
         if ($request->category) {
             $listings->whereCategory($request->category);

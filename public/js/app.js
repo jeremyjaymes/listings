@@ -2059,7 +2059,7 @@ __webpack_require__.r(__webpack_exports__);
     approve: function approve(id) {
       var _this = this;
 
-      axios.post('/approvals/' + id).then(function (response) {
+      axios.post('/approvals/' + id).then(function (resp) {
         _this.$toasted.show(resp.data.message, {
           theme: "",
           position: "top-center",
@@ -2138,7 +2138,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var request = {
-        name: this.name
+        name: this.name,
+        slug: this.name
       };
       axios.post('/categories', request).then(function (resp) {
         _this.$toasted.show(resp.data.message, {

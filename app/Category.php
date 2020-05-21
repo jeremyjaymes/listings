@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Category extends Model
 {
@@ -15,7 +16,9 @@ class Category extends Model
 
     public function getApprovedListingsAttribute()
     {
-        return $this->listings->where('is_approved', true)->count();
+        return Cache::remember("category-{$this->id}-count", 12*60, function () {
+            return $this->listings->where('is_approved', true)->count();
+        });
     }
 
     public function setSlugAttribute($value)
