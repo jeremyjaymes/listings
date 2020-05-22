@@ -23,5 +23,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/approvals', 'ListingApprovalController@index');
     Route::post('/approvals/{listing}', 'ListingApprovalController@store');
 
-    Route::resource('categories', 'CategoryController');
+    Route::resource('categories', 'CategoryController')->middleware('can:update,App\Category');
 });

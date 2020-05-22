@@ -58,9 +58,11 @@ class ListingController extends Controller
      */
     public function store(StoreListing $request)
     {
+        $this->purge('listings');
         $listing = Listing::create($request->input());
 
         if ($request->tagsArray) {
+            $this->purge('tags');
             foreach ($request->tagsArray as $tag) {
                 $t = Tag::create(['name' => $tag['value']]);
                 $listing->tags()->attach($t->id);

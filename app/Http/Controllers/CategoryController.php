@@ -21,6 +21,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->purge('categories');
+
         Category::create($request->input());
 
         return response()->json([
