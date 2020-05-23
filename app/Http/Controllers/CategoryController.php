@@ -23,10 +23,11 @@ class CategoryController extends Controller
     {
         $this->purge('categories');
 
-        Category::create($request->input());
+        $category = Category::create($request->input());
 
         return response()->json([
-            'message' => 'Category created.'
+            'message' => 'Category created.',
+            'category' => $category
         ], 200);
     }
 }

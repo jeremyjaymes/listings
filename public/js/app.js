@@ -2130,6 +2130,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['categories'],
   data: function data() {
     return {
+      categoriesArray: this.categories,
       name: ''
     };
   },
@@ -2150,9 +2151,17 @@ __webpack_require__.r(__webpack_exports__);
           duration: 5000
         });
 
+        _this.categoriesArray.push(resp.data.category);
+
         _this.name = '';
       })["catch"](function (err) {
-        return console.log(err);
+        return _this.$toasted.show(err, {
+          theme: "",
+          position: "top-center",
+          className: "bg-red text-white rounded-full",
+          type: "success",
+          duration: 5000
+        });
       });
     }
   }
@@ -25028,7 +25037,7 @@ var render = function() {
             }
           ],
           staticClass:
-            "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n        leading-tight focus:outline-none focus:shadow-outline",
+            "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700\n    leading-tight focus:outline-none focus:shadow-outline",
           attrs: { id: "name", type: "text", placeholder: "" },
           domProps: { value: _vm.name },
           on: {
@@ -25047,7 +25056,7 @@ var render = function() {
           "button",
           {
             staticClass:
-              "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4\n            border-blue-700 hover:border-blue-500 rounded",
+              "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4\n        border-blue-700 hover:border-blue-500 rounded",
             on: {
               click: function($event) {
                 $event.preventDefault()
@@ -25059,10 +25068,14 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._l(_vm.categories, function(category) {
-        return _c("div", [
-          _vm._v("\n        " + _vm._s(category.name) + "\n    ")
-        ])
+      _vm._l(_vm.categoriesArray, function(category) {
+        return _c(
+          "span",
+          {
+            staticClass: "inline-block bg-gray-300 rounded-full py-2 px-4 m-1"
+          },
+          [_vm._v("\n            " + _vm._s(category.name) + "\n    ")]
+        )
       })
     ],
     2
