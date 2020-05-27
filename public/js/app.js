@@ -26638,7 +26638,7 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("div", { staticClass: "md:w-3/4 listing_detail" }, [
+              _c("div", { staticClass: "md:w-2/3 listing_detail" }, [
                 _c(
                   "h2",
                   { staticClass: "text-xl font-semibold text-gray-700" },
@@ -26683,13 +26683,13 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "tags md:w-1/4 text-right" },
+                { staticClass: "tags md:w-1/3 text-right" },
                 _vm._l(listing.tags, function(tag) {
                   return _c(
                     "span",
                     {
                       staticClass:
-                        "inline-block bg-gray-200 rounded-full px-3 py-1\n                text-sm font-semibold text-gray-700 mr-2"
+                        "inline-block bg-gray-200 rounded-full px-3 py-1\n                text-sm font-semibold text-gray-700 mr-1 mb-1"
                     },
                     [
                       _vm._v(

@@ -6,7 +6,7 @@
                 <div class="bg-gray-300 rounded-full h-16 w-16 flex items-center justify-center mr-6 -mx-12">
                     <span class="text-2xl">{{ badge(listing.name) }}</span>
                 </div>
-                <div class="md:w-3/4 listing_detail">
+                <div class="md:w-2/3 listing_detail">
                     <h2 class="text-xl font-semibold text-gray-700">
                         <a :href="/listings/ + listing.id">
                             {{ listing.name }}
@@ -20,9 +20,9 @@
                         <a class="text-blue-300" :href="listing.website">{{ listing.website }}</a>
                     </p>
                 </div>
-                <div class="tags md:w-1/4 text-right">
+                <div class="tags md:w-1/3 text-right">
                     <span class="inline-block bg-gray-200 rounded-full px-3 py-1
-                    text-sm font-semibold text-gray-700 mr-2" v-for="tag in listing.tags">
+                    text-sm font-semibold text-gray-700 mr-1 mb-1" v-for="tag in listing.tags">
                         #{{ tag.name }}
                     </span>
                 </div>

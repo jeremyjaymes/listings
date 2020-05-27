@@ -25,6 +25,7 @@ class ListingController extends Controller
         $listings = Cache::remember('listings', 18*60, function () {
             return Listing::where('is_approved', true)
                 ->with('tags', 'categories')
+                ->orderBy('created_at', 'DESC')
                 ->get();
         });
 
