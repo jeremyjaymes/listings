@@ -15,7 +15,10 @@
                     </div>
                 </div>
                 <div class="md:w-1/4">
-
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1
+                    text-sm font-semibold text-gray-700 mr-2" v-for="tag in listing.tags">
+                        #{{ tag.name }}
+                    </span>
                 </div>
                 <div class="md:w-1/4 text-right">
                     <label class="md:w-2/3 block text-gray-500">

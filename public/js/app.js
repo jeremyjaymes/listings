@@ -2055,6 +2055,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['listings'],
   methods: {
@@ -24950,7 +24953,27 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "md:w-1/4" }),
+              _c(
+                "div",
+                { staticClass: "md:w-1/4" },
+                _vm._l(listing.tags, function(tag) {
+                  return _c(
+                    "span",
+                    {
+                      staticClass:
+                        "inline-block bg-gray-200 rounded-full px-3 py-1\n                text-sm font-semibold text-gray-700 mr-2"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    #" +
+                          _vm._s(tag.name) +
+                          "\n                "
+                      )
+                    ]
+                  )
+                }),
+                0
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "md:w-1/4 text-right" }, [
                 _c("label", { staticClass: "md:w-2/3 block text-gray-500" }, [
