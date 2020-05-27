@@ -15,16 +15,18 @@
                     </div>
                 </div>
                 <div class="md:w-1/4">
-                    Capabilities
+
                 </div>
                 <div class="md:w-1/4 text-right">
                     <label class="md:w-2/3 block text-gray-500">
-                        <input class="mr-2 leading-tight" type="checkbox" @change="approve(listing.id)">
+                        <input :id="'approve-'+listing.id" class="mr-2 leading-tight" type="checkbox"
+                        @change="approve(listing.id)">
                         <span class="text-sm">
                             Approve
                         </span>
                     </label>
-                    <button class="text-red-600" @click="remove(listing.id)">Deny</button>
+                    <button :id="'deny-'+listing.id" class="text-red-600" @click="remove(listing.id)">
+                        Deny</button>
                 </div>
             </div>
         </div>
